@@ -19,9 +19,13 @@ sound, learned through tapping and repetition — not text or grammar.
 - **Listen & Tap game** — the app says a phrase; the child taps the right
   picture out of 3. Wrong taps are gentle (no score loss); right taps celebrate.
 - **Parent mode** — behind a simple adult gate (a small sum). Switch language,
-  show/hide German text, see progress, replay any phrase.
-- **No accounts, no backend, no tracking.** Progress is stored only on the
-  device (`localStorage`). Privacy-safe by default.
+  show/hide German text, choose speech backend, see progress, replay any phrase.
+- **Speak & repeat** — a forgiving "say it back" mic on every phrase. Backend is
+  pluggable: Web Speech (fast) or on-device Vosk (private/offline).
+- **Local-first by default.** Progress is stored on the device (`localStorage`),
+  no account required. **Optional** Google sign-in (parent only) backs progress
+  up to the cloud and syncs across devices — see
+  [`docs/SUPABASE_SETUP.md`](docs/SUPABASE_SETUP.md). Disabled until configured.
 
 See [`docs/MVP_SPEC.md`](docs/MVP_SPEC.md) for the full product/architecture spec.
 

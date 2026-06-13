@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import SyncProvider from "@/components/SyncProvider";
 
 export const metadata: Metadata = {
   title: "Kita-Sprache",
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body>
+        <SyncProvider />
         <div className="app-shell">{children}</div>
       </body>
     </html>

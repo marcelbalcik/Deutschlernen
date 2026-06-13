@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import TopBar from "@/components/TopBar";
+import AccountSection from "@/components/AccountSection";
 import { CATEGORIES } from "@/data/categories";
 import { getPhrases } from "@/data/phrases";
 import { useSettings } from "@/lib/settings";
@@ -87,6 +88,8 @@ function ParentDashboard() {
   return (
     <>
       <TopBar title="Für Eltern" backHref="/" />
+
+      <AccountSection />
 
       <div className="parent-section">
         <h3>Settings</h3>

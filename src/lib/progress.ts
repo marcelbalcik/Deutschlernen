@@ -1,6 +1,6 @@
-// Simple, privacy-safe progress tracking. Everything lives in localStorage on
-// the child's device — no accounts, no backend, no data leaves the device.
-// This is intentional for a children's app MVP (GDPR-K / COPPA friendly).
+// Progress tracking. localStorage is always the source of truth (works offline,
+// no account needed). When a parent signs in, the sync layer mirrors this to
+// the cloud — but nothing here depends on the cloud.
 
 const SEEN_KEY = "kita_seen_phrases_v1";
 const CORRECT_KEY = "kita_correct_phrases_v1";
@@ -26,6 +26,28 @@ function writeSet(key: string, set: Set<string>): void {
   } catch {
     // Storage may be full or disabled; progress is non-critical, so ignore.
   }
+  notify();
+}
+
+// --- Change notifications (used by the cloud-sync layer to push updates) ---
+
+type Listener = () => void;
+const listeners = new Set<Listener>();
+
+/** Subscribe to any progress change. Returns an unsubscribe function. */
+export function subscribeProgress(cb: Listener): () => void {
+  listeners.add(cb);
+  return () => listeners.delete(cb);
+}
+
+function notify(): void {
+  listeners.forEach((cb) => {
+    try {
+      cb();
+    } catch {
+      /* a listener error must not break progress writes */
+    }
+  });
 }
 
 /** Mark a phrase as having been viewed at least once. */
@@ -80,6 +102,48 @@ export function getFavorites(): Set<string> {
   return readSet(FAVORITES_KEY);
 }
 
+// --- Snapshot / merge (the shape stored in the cloud) ---
+
+export type ProgressSnapshot = {
+  seen: string[];
+  correct: string[];
+  spoken: string[];
+  favorites: string[];
+};
+
+export function getProgressSnapshot(): ProgressSnapshot {
+  return {
+    seen: [...readSet(SEEN_KEY)],
+    correct: [...readSet(CORRECT_KEY)],
+    spoken: [...readSet(SPOKEN_KEY)],
+    favorites: [...readSet(FAVORITES_KEY)],
+  };
+}
+
+/**
+ * Merge a snapshot (e.g. from the cloud) INTO local progress by union. Union
+ * means multi-device progress combines additively and we never lose a phrase a
+ * child already practiced on another device.
+ */
+export function applyProgressSnapshot(snap: Partial<ProgressSnapshot>): void {
+  const merge = (key: string, incoming?: string[]) => {
+    if (!incoming || incoming.length === 0) return;
+    const set = readSet(key);
+    let changed = false;
+    for (const id of incoming) {
+      if (!set.has(id)) {
+        set.add(id);
+        changed = true;
+      }
+    }
+    if (changed) writeSet(key, set);
+  };
+  merge(SEEN_KEY, snap.seen);
+  merge(CORRECT_KEY, snap.correct);
+  merge(SPOKEN_KEY, snap.spoken);
+  merge(FAVORITES_KEY, snap.favorites);
+}
+
 /** Wipe all locally stored progress (offered in parent mode). */
 export function resetProgress(): void {
   if (typeof window === "undefined") return;
@@ -87,4 +151,5 @@ export function resetProgress(): void {
   window.localStorage.removeItem(CORRECT_KEY);
   window.localStorage.removeItem(SPOKEN_KEY);
   window.localStorage.removeItem(FAVORITES_KEY);
+  notify();
 }

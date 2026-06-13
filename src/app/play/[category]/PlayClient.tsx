@@ -9,7 +9,7 @@ import TopBar from "@/components/TopBar";
 import { getPhrases, getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
-import { playPhraseItem } from "@/lib/audio";
+import { playPhraseItem, playTargetThenNative } from "@/lib/audio";
 import { markCorrect } from "@/lib/progress";
 import type { PhraseItem } from "@/types/phrase";
 
@@ -29,9 +29,10 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 /**
- * Listen & Tap: the app speaks a German phrase, the child taps the matching
- * picture out of 3. Wrong taps are gentle (shake/red, no score loss); right
- * taps celebrate and advance. Recognition before production.
+ * Listen & Pick: the app speaks a German phrase, the child taps the matching
+ * picture out of 2. Wrong taps are gentle (no score loss); a correct tap
+ * celebrates, then replays the German phrase followed by its translation in the
+ * child's language, and advances. Recognition before production.
  */
 export default function PlayClient() {
   const params = useParams();
@@ -46,9 +47,10 @@ export default function PlayClient() {
     const inCategory = getPhrasesByCategory(categoryId, source);
     const all = getPhrases(source);
     return shuffle(inCategory).map((target) => {
+      // Two cards: the correct one plus a single distractor.
       const distractors = shuffle(
         all.filter((p) => p.id !== target.id)
-      ).slice(0, 2);
+      ).slice(0, 1);
       return { target, options: shuffle([target, ...distractors]) };
     });
   }, [categoryId, source, ready]);
@@ -77,14 +79,14 @@ export default function PlayClient() {
   }
 
   if (!ready || rounds.length === 0) {
-    return <TopBar title={category.title} backHref="/" />;
+    return <TopBar title={category.title} backHref="/play" />;
   }
 
   // Finished all rounds.
   if (round >= rounds.length) {
     return (
       <>
-        <TopBar title={category.title} backHref="/" />
+        <TopBar title={category.title} backHref="/play" />
         <div className="flashcard" style={{ cursor: "default" }}>
           <span className="visual" style={{ fontSize: 120 }} aria-hidden>
             🎉
@@ -121,12 +123,15 @@ export default function PlayClient() {
     setPicked(p.id);
 
     if (p.id === current.target.id) {
-      markCorrect(current.target.id);
+      const target = current.target;
+      markCorrect(target.id);
       setSolved((s) => [...s, round]);
-      setTimeout(() => {
+      // Reinforcement: hear the German phrase again, then the translation, then
+      // move on. Kicked off inside the tap so mobile audio is allowed to play.
+      void playTargetThenNative(target).finally(() => {
         setPicked(null);
         setRound((r) => r + 1);
-      }, 1100);
+      });
     } else {
       // Gentle: clear the wrong state and let them try again.
       setTimeout(() => setPicked(null), 700);
@@ -135,7 +140,7 @@ export default function PlayClient() {
 
   return (
     <>
-      <TopBar title={category.title} backHref="/" />
+      <TopBar title={category.title} backHref="/play" />
       <ProgressDots total={rounds.length} current={round} done={solved} />
 
       <div className="play-prompt">
@@ -143,7 +148,7 @@ export default function PlayClient() {
         <AudioButton phrase={current.target} label="🔊 Nochmal" />
       </div>
 
-      <div className="choice-grid" style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
+      <div className="choice-grid">
         {current.options.map((opt) => {
           let state: "idle" | "correct" | "wrong" = "idle";
           if (picked) {

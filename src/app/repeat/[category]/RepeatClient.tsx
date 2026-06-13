@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import TopBar from "@/components/TopBar";
 import ProgressDots from "@/components/ProgressDots";
@@ -10,11 +10,13 @@ import PhraseVisual from "@/components/PhraseVisual";
 import { getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
+import { playTarget, playTargetThenNative } from "@/lib/audio";
 
 /**
- * Speaking round: for each phrase the child hears it, then says it back into
- * the mic. Forgiving by design — every attempt is encouraged, never marked
- * wrong. The child advances at their own pace.
+ * Speaking round: each phrase auto-plays in German ("the phrase listened"), the
+ * child says it back into the mic, then hears the German phrase again followed
+ * by its translation in their own language. Forgiving by design — every attempt
+ * is encouraged, never marked wrong. The child advances at their own pace.
  */
 export default function RepeatClient() {
   const params = useParams();
@@ -31,6 +33,16 @@ export default function RepeatClient() {
   const [index, setIndex] = useState(0);
   const [done, setDone] = useState<number[]>([]);
 
+  const phrase = phrases[index];
+
+  // Auto-play the German phrase when a new item appears.
+  useEffect(() => {
+    if (phrase) {
+      const t = setTimeout(() => void playTarget(phrase), 350);
+      return () => clearTimeout(t);
+    }
+  }, [phrase]);
+
   if (!category || phrases.length === 0) {
     return (
       <>
@@ -39,14 +51,13 @@ export default function RepeatClient() {
       </>
     );
   }
-  if (!ready) return <TopBar title={category.title} backHref="/" />;
+  if (!ready) return <TopBar title={category.title} backHref="/repeat" />;
 
-  const phrase = phrases[index];
   const isLast = index === phrases.length - 1;
 
   return (
     <>
-      <TopBar title={`${category.title} · Sprechen`} backHref="/" />
+      <TopBar title={`${category.title} · Sprechen`} backHref="/repeat" />
       <ProgressDots total={phrases.length} current={index} done={done} />
 
       <div className="flashcard" style={{ cursor: "default" }}>
@@ -55,9 +66,11 @@ export default function RepeatClient() {
         <AudioButton phrase={phrase} label="Hör zu" />
         <RepeatButton
           phrase={phrase}
-          onSuccess={() =>
-            setDone((d) => (d.includes(index) ? d : [...d, index]))
-          }
+          onSuccess={() => {
+            setDone((d) => (d.includes(index) ? d : [...d, index]));
+            // Reinforcement: hear it again in German, then in the child's language.
+            void playTargetThenNative(phrase);
+          }}
         />
       </div>
 

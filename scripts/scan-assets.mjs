@@ -19,7 +19,9 @@ const exercisesDir = join(root, "public", "exercises");
 const outFile = join(root, "src", "data", "assets.generated.json");
 
 const IMAGE_FILE = "image.png";
-const AUDIO_FILE = "audio.mp3";
+const AUDIO_FILE = "audio.mp3"; // German
+const AUDIO_EN_FILE = "audio.en.mp3"; // English translation (optional)
+const AUDIO_TR_FILE = "audio.tr.mp3"; // Turkish translation (optional)
 
 const manifest = {};
 
@@ -28,11 +30,12 @@ if (existsSync(exercisesDir)) {
     const dir = join(exercisesDir, entry);
     if (!statSync(dir).isDirectory()) continue;
 
-    const hasImage = existsSync(join(dir, IMAGE_FILE));
-    const hasAudio = existsSync(join(dir, AUDIO_FILE));
-    if (hasImage || hasAudio) {
-      manifest[entry] = { image: hasImage, audio: hasAudio };
-    }
+    const flags = {};
+    if (existsSync(join(dir, IMAGE_FILE))) flags.image = true;
+    if (existsSync(join(dir, AUDIO_FILE))) flags.audio = true;
+    if (existsSync(join(dir, AUDIO_EN_FILE))) flags.audio_en = true;
+    if (existsSync(join(dir, AUDIO_TR_FILE))) flags.audio_tr = true;
+    if (Object.keys(flags).length > 0) manifest[entry] = flags;
   }
 }
 

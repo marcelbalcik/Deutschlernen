@@ -1,5 +1,6 @@
 import type { PhraseItem } from "@/types/phrase";
 import manifest from "@/data/assets.generated.json";
+import { withBasePath } from "./basePath";
 
 // Manifest of which exercises have real assets, produced by scripts/scan-assets.mjs.
 type AssetFlags = { image?: boolean; audio?: boolean };
@@ -40,9 +41,9 @@ export const IMAGE_FILE = "image.png";
 export const AUDIO_FILE = "audio.mp3";
 
 export function imageUrl(item: Pick<PhraseItem, "id" | "imageAsset">): string {
-  return item.imageAsset ?? `${EXERCISES_DIR}/${item.id}/${IMAGE_FILE}`;
+  return withBasePath(item.imageAsset ?? `${EXERCISES_DIR}/${item.id}/${IMAGE_FILE}`);
 }
 
 export function audioUrl(item: Pick<PhraseItem, "id" | "audioAsset">): string {
-  return item.audioAsset ?? `${EXERCISES_DIR}/${item.id}/${AUDIO_FILE}`;
+  return withBasePath(item.audioAsset ?? `${EXERCISES_DIR}/${item.id}/${AUDIO_FILE}`);
 }

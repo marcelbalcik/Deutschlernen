@@ -1,5 +1,6 @@
 import type { RecognitionResult, SpeechRecognizer } from "./types";
 import type { Model, KaldiRecognizer } from "vosk-browser";
+import { withBasePath } from "@/lib/basePath";
 
 // On-device, offline speech recognition via vosk-browser (Kaldi compiled to
 // WASM). The microphone audio NEVER leaves the device — this is the private
@@ -13,7 +14,8 @@ import type { Model, KaldiRecognizer } from "vosk-browser";
 // bloat the main bundle or load unless the on-device backend is actually used.
 
 const DEFAULT_MODEL_URL =
-  process.env.NEXT_PUBLIC_VOSK_MODEL_URL ?? "/models/vosk-model-small-de.tar.gz";
+  process.env.NEXT_PUBLIC_VOSK_MODEL_URL ??
+  withBasePath("/models/vosk-model-small-de.tar.gz");
 
 // One shared model load across the whole app.
 let modelPromise: Promise<Model> | null = null;

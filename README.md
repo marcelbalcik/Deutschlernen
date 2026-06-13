@@ -40,10 +40,37 @@ npm run dev      # http://localhost:3000
 
 Open it on a phone/tablet on the same network to test with a real child.
 
-Build for production:
+Build for production (server/Vercel):
 
 ```bash
 npm run build && npm run start
+```
+
+## Deploy free to GitHub Pages (fully static, no server)
+
+The app exports to a 100% static site, so it runs on GitHub Pages with no
+backend. A workflow (`.github/workflows/deploy-pages.yml`) does it on every push
+to `main`:
+
+1. Repo **Settings → Pages → Source: GitHub Actions**.
+2. Push to `main`. The site publishes at
+   `https://<user>.github.io/<repo>/`.
+
+That's it for the core app (flashcards, game, speak-and-repeat via browser
+speech). Two optional extras need a little more — see
+[`docs/DEPLOY_GITHUB_PAGES.md`](docs/DEPLOY_GITHUB_PAGES.md):
+
+- **Cloud sync / Google login:** add `NEXT_PUBLIC_SUPABASE_URL` /
+  `NEXT_PUBLIC_SUPABASE_ANON_KEY` as Actions secrets, and add the Pages URL to
+  Supabase's redirect list.
+- **On-device Vosk model:** the ~45 MB model isn't committed; host it on a CDN
+  and set the `NEXT_PUBLIC_VOSK_MODEL_URL` Actions variable. Without it, voice
+  practice still works via the browser recognizer.
+
+To build the static site locally:
+
+```bash
+BUILD_TARGET=pages NEXT_PUBLIC_BASE_PATH="" npm run build:pages   # output in ./out
 ```
 
 ---

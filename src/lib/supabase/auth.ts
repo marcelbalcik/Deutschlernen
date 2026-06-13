@@ -1,5 +1,6 @@
 import type { Session } from "@supabase/supabase-js";
 import { getSupabase } from "./client";
+import { withBasePath } from "@/lib/basePath";
 
 // Auth helpers. The PARENT signs in with Google (behind the parent gate);
 // children never authenticate. All calls are safe no-ops when cloud sync isn't
@@ -11,7 +12,9 @@ export async function signInWithGoogle(redirectPath = "/parent"): Promise<void> 
   if (!sb || typeof window === "undefined") return;
   await sb.auth.signInWithOAuth({
     provider: "google",
-    options: { redirectTo: `${window.location.origin}${redirectPath}` },
+    options: {
+      redirectTo: `${window.location.origin}${withBasePath(redirectPath)}`,
+    },
   });
 }
 

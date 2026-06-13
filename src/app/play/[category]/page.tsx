@@ -94,6 +94,12 @@ export default function PlayPage() {
         <div className="mode-buttons">
           <button
             className="link-btn"
+            onClick={() => router.push(`/repeat/${categoryId}`)}
+          >
+            🎤 Sprich nach
+          </button>
+          <button
+            className="link-btn"
             onClick={() => {
               setRound(0);
               setSolved([]);

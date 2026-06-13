@@ -4,6 +4,7 @@
 
 const SEEN_KEY = "kita_seen_phrases_v1";
 const CORRECT_KEY = "kita_correct_phrases_v1";
+const SPOKEN_KEY = "kita_spoken_phrases_v1";
 const FAVORITES_KEY = "kita_favorite_phrases_v1";
 
 function readSet(key: string): Set<string> {
@@ -41,12 +42,23 @@ export function markCorrect(id: string): void {
   writeSet(CORRECT_KEY, set);
 }
 
+/** Mark a phrase as having been spoken/attempted aloud in Repeat mode. */
+export function markSpoken(id: string): void {
+  const set = readSet(SPOKEN_KEY);
+  set.add(id);
+  writeSet(SPOKEN_KEY, set);
+}
+
 export function getSeen(): Set<string> {
   return readSet(SEEN_KEY);
 }
 
 export function getCorrect(): Set<string> {
   return readSet(CORRECT_KEY);
+}
+
+export function getSpoken(): Set<string> {
+  return readSet(SPOKEN_KEY);
 }
 
 export function isFavorite(id: string): boolean {
@@ -73,5 +85,6 @@ export function resetProgress(): void {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(SEEN_KEY);
   window.localStorage.removeItem(CORRECT_KEY);
+  window.localStorage.removeItem(SPOKEN_KEY);
   window.localStorage.removeItem(FAVORITES_KEY);
 }

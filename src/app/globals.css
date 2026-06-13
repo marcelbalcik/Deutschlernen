@@ -424,6 +424,82 @@ body {
   padding-top: 20px;
 }
 
+/* --------------------------- Repeat / speak ------------------------ */
+.repeat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.mic-btn {
+  border: none;
+  background: #6c5ce7;
+  color: white;
+  font-size: 30px;
+  padding: 14px 26px;
+  border-radius: 26px;
+  box-shadow: 0 6px 0 #4f3fc0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.mic-btn .mic-label {
+  font-size: 18px;
+  font-weight: 800;
+}
+.mic-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #4f3fc0;
+}
+.mic-btn:disabled {
+  cursor: default;
+}
+.mic-btn.live {
+  background: #e74c5b;
+  box-shadow: 0 6px 0 #b83644;
+  animation: pulse 1s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+.repeat-feedback {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.repeat-feedback.show {
+  opacity: 1;
+}
+.repeat-feedback .rf-emoji {
+  font-size: 30px;
+}
+.repeat-feedback .rf-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--good);
+}
+.repeat-feedback .rf-hear {
+  border: none;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  border-radius: 16px;
+  padding: 8px 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .parent-corner {
   position: fixed;
   bottom: 14px;

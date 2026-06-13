@@ -6,7 +6,7 @@ import { CATEGORIES } from "@/data/categories";
 import { getPhrases } from "@/data/phrases";
 import { useSettings } from "@/lib/settings";
 import { playPhraseItem } from "@/lib/audio";
-import { getCorrect, getSeen, resetProgress } from "@/lib/progress";
+import { getCorrect, getSeen, getSpoken, resetProgress } from "@/lib/progress";
 import type { SourceLanguage } from "@/types/phrase";
 
 // A tiny adult gate: solve a simple sum a young child cannot. Not security —
@@ -67,12 +67,14 @@ function ParentDashboard() {
   const phrases = useMemo(() => getPhrases(source), [source]);
   const seen = getSeen();
   const correct = getCorrect();
+  const spoken = getSpoken();
 
   if (!ready) return <TopBar title="Für Eltern" backHref="/" />;
 
   const total = phrases.length;
   const seenCount = phrases.filter((p) => seen.has(p.id)).length;
   const correctCount = phrases.filter((p) => correct.has(p.id)).length;
+  const spokenCount = phrases.filter((p) => spoken.has(p.id)).length;
 
   return (
     <>
@@ -125,6 +127,12 @@ function ParentDashboard() {
           <span>Matched in game</span>
           <strong>
             {correctCount} / {total}
+          </strong>
+        </div>
+        <div className="parent-row">
+          <span>Practiced speaking</span>
+          <strong>
+            {spokenCount} / {total}
           </strong>
         </div>
         <button

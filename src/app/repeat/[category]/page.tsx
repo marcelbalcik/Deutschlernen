@@ -2,21 +2,25 @@
 
 import { useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import Flashcard from "@/components/Flashcard";
+import TopBar from "@/components/TopBar";
 import ProgressDots from "@/components/ProgressDots";
 import AudioButton from "@/components/AudioButton";
 import RepeatButton from "@/components/RepeatButton";
-import TopBar from "@/components/TopBar";
+import PhraseVisual from "@/components/PhraseVisual";
 import { getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
 
-/** Flashcard deck for one category. Swipe-free: big Next/Back buttons. */
-export default function LearnPage() {
+/**
+ * Speaking round: for each phrase the child hears it, then says it back into
+ * the mic. Forgiving by design — every attempt is encouraged, never marked
+ * wrong. The child advances at their own pace.
+ */
+export default function RepeatPage() {
   const params = useParams();
   const router = useRouter();
   const categoryId = String(params.category);
-  const { ready, source, showText } = useSettings();
+  const { ready, showText, source } = useSettings();
 
   const category = getCategory(categoryId);
   const phrases = useMemo(
@@ -25,6 +29,7 @@ export default function LearnPage() {
   );
 
   const [index, setIndex] = useState(0);
+  const [done, setDone] = useState<number[]>([]);
 
   if (!category || phrases.length === 0) {
     return (
@@ -34,8 +39,6 @@ export default function LearnPage() {
       </>
     );
   }
-
-  // Wait for client settings so we don't flash the wrong source language.
   if (!ready) return <TopBar title={category.title} backHref="/" />;
 
   const phrase = phrases[index];
@@ -43,17 +46,20 @@ export default function LearnPage() {
 
   return (
     <>
-      <TopBar title={category.title} backHref="/" />
+      <TopBar title={`${category.title} · Sprechen`} backHref="/" />
+      <ProgressDots total={phrases.length} current={index} done={done} />
 
-      <ProgressDots total={phrases.length} current={index} />
-
-      <Flashcard phrase={phrase} showText={showText} showSource={false} />
-
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
-        <AudioButton phrase={phrase} label="Nochmal hören" />
+      <div className="flashcard" style={{ cursor: "default" }}>
+        <PhraseVisual phrase={phrase} size={130} />
+        {showText && <p className="phrase-de">{phrase.phraseTarget}</p>}
+        <AudioButton phrase={phrase} label="Hör zu" />
+        <RepeatButton
+          phrase={phrase}
+          onSuccess={() =>
+            setDone((d) => (d.includes(index) ? d : [...d, index]))
+          }
+        />
       </div>
-
-      <RepeatButton phrase={phrase} />
 
       <div className="nav-row">
         <button
@@ -67,10 +73,10 @@ export default function LearnPage() {
         {isLast ? (
           <button
             className="nav-btn primary"
-            onClick={() => router.push(`/play/${categoryId}`)}
-            aria-label="Play game"
+            onClick={() => router.push("/")}
+            aria-label="Done"
           >
-            🎮
+            🏠
           </button>
         ) : (
           <button

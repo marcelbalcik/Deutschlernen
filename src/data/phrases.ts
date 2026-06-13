@@ -1,4 +1,5 @@
 import type { PhraseContent, PhraseItem, SourceLanguage } from "@/types/phrase";
+import { IMAGE_OVERRIDES, RAW_IMAGE_DIR } from "./imageOverrides";
 
 // ---------------------------------------------------------------------------
 // Canonical content. Authored ONCE. German is the target; "translations" holds
@@ -443,7 +444,9 @@ export function getPhrases(source: SourceLanguage): PhraseItem[] {
     situationDescription: p.situationDescription,
     emotion: p.emotion,
     emoji: p.emoji,
-    imageAsset: p.imageAsset,
+    imageAsset: IMAGE_OVERRIDES[p.id]
+      ? `${RAW_IMAGE_DIR}/${IMAGE_OVERRIDES[p.id]}`
+      : p.imageAsset,
     audioAsset: p.audioAsset,
     difficulty: p.difficulty,
     tags: p.tags,

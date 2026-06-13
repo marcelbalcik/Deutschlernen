@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import type { PhraseItem } from "@/types/phrase";
 import {
   getRecognizer,
-  isSpeechRecognitionSupported,
+  isWebSpeechSupported,
   scoreAttempt,
   type Outcome,
+  type SpeechBackend,
 } from "@/lib/speech";
 import {
   isRecordingSupported,
@@ -15,9 +16,10 @@ import {
 } from "@/lib/speech/recorder";
 import { playPhraseItem } from "@/lib/audio";
 import { markSpoken } from "@/lib/progress";
+import { useSettings } from "@/lib/settings";
 
 type Mode = "recognize" | "record" | "none";
-type State = "idle" | "listening" | "feedback";
+type State = "idle" | "preparing" | "listening" | "feedback";
 
 type Props = {
   phrase: PhraseItem;
@@ -34,22 +36,31 @@ const FEEDBACK: Record<Outcome, { emoji: string; text: string }> = {
 /**
  * "Sprich nach" (say it back). Tapping the mic lets the child repeat the phrase.
  *
- * - If speech recognition is available, we listen and score *forgivingly*.
- * - Otherwise we record and play the child back, then celebrate.
+ * - Recognition backend follows the parent setting: Web Speech (fast) or Vosk
+ *   (private/on-device). Vosk downloads its model on first use; if it can't be
+ *   loaded we fall back to Web Speech automatically.
+ * - If no recognition is available at all, we record and play the child back.
  * Either way there is no failure state — every attempt is encouraged.
  */
 export default function RepeatButton({ phrase, onSuccess }: Props) {
+  const { ready, speechBackend } = useSettings();
   const [mode, setMode] = useState<Mode>("none");
   const [state, setState] = useState<State>("idle");
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const recorderRef = useRef<SimpleRecorder | null>(null);
+  // Effective backend can downgrade vosk→web at runtime if the model is missing.
+  const backendRef = useRef<SpeechBackend>("web");
 
-  // Decide the backend on the client (APIs aren't available during SSR).
+  // Decide the backend on the client once settings are loaded.
   useEffect(() => {
-    if (isSpeechRecognitionSupported()) setMode("recognize");
+    if (!ready) return;
+    backendRef.current = speechBackend;
+    const voskUsable =
+      speechBackend === "vosk" && getRecognizer("vosk").isSupported();
+    if (voskUsable || isWebSpeechSupported()) setMode("recognize");
     else if (isRecordingSupported()) setMode("record");
     else setMode("none");
-  }, []);
+  }, [ready, speechBackend]);
 
   // Reset feedback when moving to a new phrase.
   useEffect(() => {
@@ -67,11 +78,28 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
   }
 
   async function handleRecognize() {
-    setState("listening");
     setOutcome(null);
-    const result = await getRecognizer().listenOnce({
+    let recognizer = getRecognizer(backendRef.current);
+
+    // Vosk needs its model; show a loading state and fall back if it fails.
+    if (backendRef.current === "vosk" && recognizer.prepare) {
+      setState("preparing");
+      const ok = await recognizer.prepare();
+      if (!ok) {
+        if (isWebSpeechSupported()) {
+          backendRef.current = "web";
+          recognizer = getRecognizer("web");
+        } else {
+          celebrate("close"); // no recognition available — still encourage
+          return;
+        }
+      }
+    }
+
+    setState("listening");
+    const result = await recognizer.listenOnce({
       lang: "de-DE",
-      timeoutMs: 6000,
+      timeoutMs: backendRef.current === "vosk" ? 7000 : 6000,
     });
     const score = scoreAttempt(phrase.phraseTarget, result.transcript, {
       heardSomething: result.heardSomething,
@@ -86,7 +114,6 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
       setState("listening");
       setOutcome(null);
     } catch {
-      // Permission denied or no mic — just encourage and move on.
       celebrate("close");
     }
   }
@@ -103,29 +130,33 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
     celebrate("great"); // hearing yourself back always earns a star
   }
 
-  if (mode === "none") return null; // no mic capability at all
+  if (mode === "none") return null;
 
-  // ----- Recognize mode -----
   if (mode === "recognize") {
+    const busy = state === "listening" || state === "preparing";
+    const label =
+      state === "preparing"
+        ? "Lädt…"
+        : state === "listening"
+          ? "Ich höre zu…"
+          : "Sprich nach";
     return (
       <div className="repeat">
         <button
           className={`mic-btn ${state === "listening" ? "live" : ""}`}
-          onClick={state === "listening" ? undefined : handleRecognize}
-          disabled={state === "listening"}
+          onClick={busy ? undefined : handleRecognize}
+          disabled={busy}
           aria-label="Say the phrase"
         >
-          {state === "listening" ? "🎙️" : "🎤"}
-          <span className="mic-label">
-            {state === "listening" ? "Ich höre zu…" : "Sprich nach"}
-          </span>
+          {state === "preparing" ? "⏳" : state === "listening" ? "🎙️" : "🎤"}
+          <span className="mic-label">{label}</span>
         </button>
         <Feedback outcome={state === "feedback" ? outcome : null} phrase={phrase} />
       </div>
     );
   }
 
-  // ----- Record-and-playback mode -----
+  // Record-and-playback mode.
   return (
     <div className="repeat">
       <button

@@ -30,3 +30,7 @@ next-env.d.ts.bak
 # editor
 .vscode/
 .idea/
+
+# large on-device speech models (host separately, see public/models/README.md)
+/public/models/*.tar.gz
+/public/models/*.zip

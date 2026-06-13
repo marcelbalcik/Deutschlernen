@@ -61,7 +61,15 @@ export default function ParentPage() {
 }
 
 function ParentDashboard() {
-  const { ready, source, showText, updateSource, updateShowText } = useSettings();
+  const {
+    ready,
+    source,
+    showText,
+    speechBackend,
+    updateSource,
+    updateShowText,
+    updateSpeechBackend,
+  } = useSettings();
   const [, force] = useState(0);
 
   const phrases = useMemo(() => getPhrases(source), [source]);
@@ -113,6 +121,29 @@ function ParentDashboard() {
             </button>
           </div>
         </div>
+        <div className="parent-row">
+          <span>Speech recognition</span>
+          <div className="seg">
+            <button
+              className={speechBackend === "web" ? "active" : ""}
+              onClick={() => updateSpeechBackend("web")}
+            >
+              Fast
+            </button>
+            <button
+              className={speechBackend === "vosk" ? "active" : ""}
+              onClick={() => updateSpeechBackend("vosk")}
+            >
+              Private
+            </button>
+          </div>
+        </div>
+        <p className="muted-note" style={{ textAlign: "left", marginTop: 4 }}>
+          <strong>Fast</strong> uses the browser&apos;s recognizer (audio may be
+          processed in the cloud). <strong>Private</strong> runs fully on this
+          device and offline, but downloads a ~45&nbsp;MB German model the first
+          time. Falls back to Fast if the model isn&apos;t installed.
+        </p>
       </div>
 
       <div className="parent-section">

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { SourceLanguage } from "@/types/phrase";
+import type { SpeechBackend } from "@/lib/speech";
 
 // App-wide settings the PARENT controls, persisted to localStorage:
 //  - source language (the family's language, shown only in parent mode)
@@ -11,6 +12,7 @@ import type { SourceLanguage } from "@/types/phrase";
 
 const SOURCE_KEY = "kita_source_lang_v1";
 const SHOW_TEXT_KEY = "kita_show_text_v1";
+const SPEECH_BACKEND_KEY = "kita_speech_backend_v1";
 
 export function getSourceLanguage(): SourceLanguage {
   if (typeof window === "undefined") return "en";
@@ -34,6 +36,19 @@ export function setShowText(show: boolean): void {
   window.localStorage.setItem(SHOW_TEXT_KEY, show ? "true" : "false");
 }
 
+export function getSpeechBackend(): SpeechBackend {
+  if (typeof window === "undefined") return "web";
+  // Default "web": works out of the box. Parent can opt into private on-device.
+  return window.localStorage.getItem(SPEECH_BACKEND_KEY) === "vosk"
+    ? "vosk"
+    : "web";
+}
+
+export function setSpeechBackend(backend: SpeechBackend): void {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(SPEECH_BACKEND_KEY, backend);
+}
+
 /**
  * React hook for reading settings on the client without hydration mismatch.
  * Returns sensible defaults during SSR, then syncs from localStorage on mount.
@@ -41,11 +56,13 @@ export function setShowText(show: boolean): void {
 export function useSettings() {
   const [source, setSource] = useState<SourceLanguage>("en");
   const [showText, setShowTextState] = useState(true);
+  const [speechBackend, setBackendState] = useState<SpeechBackend>("web");
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     setSource(getSourceLanguage());
     setShowTextState(getShowText());
+    setBackendState(getSpeechBackend());
     setReady(true);
   }, []);
 
@@ -53,6 +70,7 @@ export function useSettings() {
     ready,
     source,
     showText,
+    speechBackend,
     updateSource(lang: SourceLanguage) {
       setSourceLanguage(lang);
       setSource(lang);
@@ -60,6 +78,10 @@ export function useSettings() {
     updateShowText(show: boolean) {
       setShowText(show);
       setShowTextState(show);
+    },
+    updateSpeechBackend(backend: SpeechBackend) {
+      setSpeechBackend(backend);
+      setBackendState(backend);
     },
   };
 }

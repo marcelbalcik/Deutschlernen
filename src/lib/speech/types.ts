@@ -15,6 +15,12 @@ export interface SpeechRecognizer {
   /** Whether this backend can run in the current environment. */
   isSupported(): boolean;
   /**
+   * Optional one-time initialisation (e.g. downloading an on-device model).
+   * Returns true if the backend is ready to use. Backends with nothing to
+   * prepare may omit this.
+   */
+  prepare?(): Promise<boolean>;
+  /**
    * Listen for a single short utterance and resolve with the result.
    * Resolves (never rejects) on no-speech/timeout so the UI stays simple.
    * @param onSpeechStart called when sound is first detected (for UI feedback)

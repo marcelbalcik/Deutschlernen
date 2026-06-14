@@ -1,0 +1,1854 @@
+{
+  "version": "1.0",
+  "languages": [
+    "en",
+    "de",
+    "tr"
+  ],
+  "question_types": [
+    "repeat_phrase",
+    "pick_picture"
+  ],
+  "packs": [
+    {
+      "id": "greetings",
+      "name": {
+        "en": "Greetings",
+        "de": "Begrüßungen",
+        "tr": "Selamlaşma"
+      },
+      "phrases": [
+        {
+          "id": "greetings_001",
+          "text": {
+            "en": "Hello!",
+            "de": "Hallo!",
+            "tr": "Merhaba!"
+          },
+          "scene": "Two children smiling and waving at each other"
+        },
+        {
+          "id": "greetings_002",
+          "text": {
+            "en": "Hi!",
+            "de": "Hi!",
+            "tr": "Selam!"
+          },
+          "scene": "A child raising a hand to say a casual hi"
+        },
+        {
+          "id": "greetings_003",
+          "text": {
+            "en": "Good morning!",
+            "de": "Guten Morgen!",
+            "tr": "Günaydın!"
+          },
+          "scene": "A child stretching by a sunny window in the morning"
+        },
+        {
+          "id": "greetings_004",
+          "text": {
+            "en": "Good afternoon!",
+            "de": "Guten Tag!",
+            "tr": "İyi günler!"
+          },
+          "scene": "Two people greeting under a bright midday sun"
+        },
+        {
+          "id": "greetings_005",
+          "text": {
+            "en": "Good evening!",
+            "de": "Guten Abend!",
+            "tr": "İyi akşamlar!"
+          },
+          "scene": "People greeting as the sun sets in the evening"
+        },
+        {
+          "id": "greetings_006",
+          "text": {
+            "en": "Good night!",
+            "de": "Gute Nacht!",
+            "tr": "İyi geceler!"
+          },
+          "scene": "A child in pajamas waving under a starry sky"
+        },
+        {
+          "id": "greetings_007",
+          "text": {
+            "en": "Goodbye!",
+            "de": "Auf Wiedersehen!",
+            "tr": "Hoşça kal!"
+          },
+          "scene": "A child waving while leaving through a door"
+        },
+        {
+          "id": "greetings_008",
+          "text": {
+            "en": "Bye!",
+            "de": "Tschüss!",
+            "tr": "Güle güle!"
+          },
+          "scene": "A child waving goodbye from a window"
+        },
+        {
+          "id": "greetings_009",
+          "text": {
+            "en": "See you later!",
+            "de": "Bis später!",
+            "tr": "Sonra görüşürüz!"
+          },
+          "scene": "Two friends waving as they walk in different directions"
+        },
+        {
+          "id": "greetings_010",
+          "text": {
+            "en": "See you tomorrow!",
+            "de": "Bis morgen!",
+            "tr": "Yarın görüşürüz!"
+          },
+          "scene": "A child waving at the school gate at the end of the day"
+        },
+        {
+          "id": "greetings_011",
+          "text": {
+            "en": "How are you?",
+            "de": "Wie geht es dir?",
+            "tr": "Nasılsın?"
+          },
+          "scene": "One child asking another with a friendly, curious face"
+        },
+        {
+          "id": "greetings_012",
+          "text": {
+            "en": "I'm fine, thank you.",
+            "de": "Mir geht es gut, danke.",
+            "tr": "İyiyim, teşekkürler."
+          },
+          "scene": "A smiling child giving a thumbs up"
+        },
+        {
+          "id": "greetings_013",
+          "text": {
+            "en": "What's your name?",
+            "de": "Wie heißt du?",
+            "tr": "Adın ne?"
+          },
+          "scene": "A child pointing curiously while asking another child"
+        },
+        {
+          "id": "greetings_014",
+          "text": {
+            "en": "My name is Anna.",
+            "de": "Ich heiße Anna.",
+            "tr": "Benim adım Anna."
+          },
+          "scene": "A child pointing to a name tag on their shirt"
+        },
+        {
+          "id": "greetings_015",
+          "text": {
+            "en": "Nice to meet you.",
+            "de": "Schön, dich kennenzulernen.",
+            "tr": "Tanıştığımıza memnun oldum."
+          },
+          "scene": "Two children shaking hands and smiling for the first time"
+        },
+        {
+          "id": "greetings_016",
+          "text": {
+            "en": "Welcome!",
+            "de": "Willkommen!",
+            "tr": "Hoş geldin!"
+          },
+          "scene": "A child opening a door with open arms to greet a guest"
+        },
+        {
+          "id": "greetings_017",
+          "text": {
+            "en": "Thank you!",
+            "de": "Danke!",
+            "tr": "Teşekkür ederim!"
+          },
+          "scene": "A child happily receiving a gift and saying thanks"
+        },
+        {
+          "id": "greetings_018",
+          "text": {
+            "en": "You're welcome.",
+            "de": "Bitte.",
+            "tr": "Rica ederim."
+          },
+          "scene": "A child smiling kindly after helping someone"
+        },
+        {
+          "id": "greetings_019",
+          "text": {
+            "en": "Please.",
+            "de": "Bitte.",
+            "tr": "Lütfen."
+          },
+          "scene": "A child asking politely with hands together"
+        },
+        {
+          "id": "greetings_020",
+          "text": {
+            "en": "Excuse me.",
+            "de": "Entschuldigung.",
+            "tr": "Affedersin."
+          },
+          "scene": "A child gently tapping someone's shoulder to get attention"
+        },
+        {
+          "id": "greetings_021",
+          "text": {
+            "en": "I'm sorry.",
+            "de": "Es tut mir leid.",
+            "tr": "Özür dilerim."
+          },
+          "scene": "A child apologizing with a sorry expression"
+        },
+        {
+          "id": "greetings_022",
+          "text": {
+            "en": "Yes.",
+            "de": "Ja.",
+            "tr": "Evet."
+          },
+          "scene": "A child nodding with a happy yes"
+        },
+        {
+          "id": "greetings_023",
+          "text": {
+            "en": "No.",
+            "de": "Nein.",
+            "tr": "Hayır."
+          },
+          "scene": "A child shaking their head to say no"
+        },
+        {
+          "id": "greetings_024",
+          "text": {
+            "en": "Maybe.",
+            "de": "Vielleicht.",
+            "tr": "Belki."
+          },
+          "scene": "A child shrugging with an unsure expression"
+        },
+        {
+          "id": "greetings_025",
+          "text": {
+            "en": "How old are you?",
+            "de": "Wie alt bist du?",
+            "tr": "Kaç yaşındasın?"
+          },
+          "scene": "A child asking another while holding up fingers"
+        },
+        {
+          "id": "greetings_026",
+          "text": {
+            "en": "I am five years old.",
+            "de": "Ich bin fünf Jahre alt.",
+            "tr": "Ben beş yaşındayım."
+          },
+          "scene": "A child proudly holding up five fingers"
+        },
+        {
+          "id": "greetings_027",
+          "text": {
+            "en": "Where are you from?",
+            "de": "Woher kommst du?",
+            "tr": "Nerelisin?"
+          },
+          "scene": "A child pointing at a world map and asking another"
+        },
+        {
+          "id": "greetings_028",
+          "text": {
+            "en": "Have a nice day!",
+            "de": "Schönen Tag noch!",
+            "tr": "İyi günler dilerim!"
+          },
+          "scene": "A child waving cheerfully under a bright sky"
+        },
+        {
+          "id": "greetings_029",
+          "text": {
+            "en": "Take care!",
+            "de": "Pass auf dich auf!",
+            "tr": "Kendine iyi bak!"
+          },
+          "scene": "A child waving warmly as a friend leaves"
+        },
+        {
+          "id": "greetings_030",
+          "text": {
+            "en": "See you soon!",
+            "de": "Bis bald!",
+            "tr": "Yakında görüşürüz!"
+          },
+          "scene": "Two friends waving with happy faces as they part"
+        },
+        {
+          "id": "greetings_031",
+          "text": {
+            "en": "Let's say hello.",
+            "de": "Lass uns Hallo sagen.",
+            "tr": "Hadi merhaba diyelim."
+          },
+          "scene": "A child encouraging a shy friend to wave hello"
+        },
+        {
+          "id": "greetings_032",
+          "text": {
+            "en": "Wave your hand.",
+            "de": "Wink mit der Hand.",
+            "tr": "Elini salla."
+          },
+          "scene": "A child waving one hand in the air"
+        },
+        {
+          "id": "greetings_033",
+          "text": {
+            "en": "Give me a high five!",
+            "de": "Gib mir ein Abklatschen!",
+            "tr": "Çak bir beşlik!"
+          },
+          "scene": "Two children high-fiving with big smiles"
+        },
+        {
+          "id": "greetings_034",
+          "text": {
+            "en": "Come here, please.",
+            "de": "Komm bitte her.",
+            "tr": "Buraya gel, lütfen."
+          },
+          "scene": "A child gesturing for a friend to come closer"
+        },
+        {
+          "id": "greetings_035",
+          "text": {
+            "en": "Good to see you!",
+            "de": "Schön, dich zu sehen!",
+            "tr": "Seni görmek güzel!"
+          },
+          "scene": "Two friends hugging happily when they meet"
+        },
+        {
+          "id": "greetings_036",
+          "text": {
+            "en": "Long time no see!",
+            "de": "Lange nicht gesehen!",
+            "tr": "Görüşmeyeli uzun zaman oldu!"
+          },
+          "scene": "Two friends surprised and happy to meet again"
+        },
+        {
+          "id": "greetings_037",
+          "text": {
+            "en": "How is your day?",
+            "de": "Wie ist dein Tag?",
+            "tr": "Günün nasıl?"
+          },
+          "scene": "A child asking a friend about their day on a bench"
+        },
+        {
+          "id": "greetings_038",
+          "text": {
+            "en": "Have a good night!",
+            "de": "Hab eine gute Nacht!",
+            "tr": "İyi geceler dilerim!"
+          },
+          "scene": "A child waving goodnight under a moon and stars"
+        },
+        {
+          "id": "greetings_039",
+          "text": {
+            "en": "Sleep well!",
+            "de": "Schlaf gut!",
+            "tr": "İyi uykular!"
+          },
+          "scene": "A child tucked into bed waving sleepily"
+        },
+        {
+          "id": "greetings_040",
+          "text": {
+            "en": "Sweet dreams!",
+            "de": "Süße Träume!",
+            "tr": "Tatlı rüyalar!"
+          },
+          "scene": "A sleeping child with a dream cloud above their head"
+        },
+        {
+          "id": "greetings_041",
+          "text": {
+            "en": "Hello, teacher!",
+            "de": "Hallo, Lehrer!",
+            "tr": "Merhaba, öğretmenim!"
+          },
+          "scene": "A child greeting a teacher in front of a classroom"
+        },
+        {
+          "id": "greetings_042",
+          "text": {
+            "en": "Hello, friend!",
+            "de": "Hallo, Freund!",
+            "tr": "Merhaba, arkadaşım!"
+          },
+          "scene": "Two friends greeting each other on the playground"
+        },
+        {
+          "id": "greetings_043",
+          "text": {
+            "en": "Good morning, Mom!",
+            "de": "Guten Morgen, Mama!",
+            "tr": "Günaydın, anne!"
+          },
+          "scene": "A child hugging their mother in the morning"
+        },
+        {
+          "id": "greetings_044",
+          "text": {
+            "en": "Good morning, Dad!",
+            "de": "Guten Morgen, Papa!",
+            "tr": "Günaydın, baba!"
+          },
+          "scene": "A child greeting their father at the breakfast table"
+        },
+        {
+          "id": "greetings_045",
+          "text": {
+            "en": "Hello, everyone!",
+            "de": "Hallo, zusammen!",
+            "tr": "Herkese merhaba!"
+          },
+          "scene": "A child waving to a whole group of friends"
+        },
+        {
+          "id": "greetings_046",
+          "text": {
+            "en": "Nice to see you again.",
+            "de": "Schön, dich wiederzusehen.",
+            "tr": "Seni tekrar görmek güzel."
+          },
+          "scene": "Two friends smiling as they reunite"
+        },
+        {
+          "id": "greetings_047",
+          "text": {
+            "en": "Let's shake hands.",
+            "de": "Lass uns die Hände schütteln.",
+            "tr": "Hadi el sıkışalım."
+          },
+          "scene": "Two children reaching out to shake hands"
+        },
+        {
+          "id": "greetings_048",
+          "text": {
+            "en": "Say goodbye.",
+            "de": "Sag auf Wiedersehen.",
+            "tr": "Hoşça kal de."
+          },
+          "scene": "A child waving goodbye at the front door"
+        },
+        {
+          "id": "greetings_049",
+          "text": {
+            "en": "Blow a kiss!",
+            "de": "Wirf eine Kusshand!",
+            "tr": "Öpücük gönder!"
+          },
+          "scene": "A child blowing a kiss with a hand near the mouth"
+        },
+        {
+          "id": "greetings_050",
+          "text": {
+            "en": "Have fun!",
+            "de": "Viel Spaß!",
+            "tr": "İyi eğlenceler!"
+          },
+          "scene": "A child cheering as friends head off to play"
+        }
+      ]
+    },
+    {
+      "id": "eating",
+      "name": {
+        "en": "Eating",
+        "de": "Essen",
+        "tr": "Yemek"
+      },
+      "phrases": [
+        {
+          "id": "eating_001",
+          "text": {
+            "en": "I'm hungry.",
+            "de": "Ich habe Hunger.",
+            "tr": "Acıktım."
+          },
+          "scene": "A child holding their tummy looking at food"
+        },
+        {
+          "id": "eating_002",
+          "text": {
+            "en": "I'm thirsty.",
+            "de": "Ich habe Durst.",
+            "tr": "Susadım."
+          },
+          "scene": "A child reaching for a glass of water"
+        },
+        {
+          "id": "eating_003",
+          "text": {
+            "en": "I want water.",
+            "de": "Ich möchte Wasser.",
+            "tr": "Su istiyorum."
+          },
+          "scene": "A child pointing at a glass of water"
+        },
+        {
+          "id": "eating_004",
+          "text": {
+            "en": "I want milk.",
+            "de": "Ich möchte Milch.",
+            "tr": "Süt istiyorum."
+          },
+          "scene": "A child holding up a glass of milk"
+        },
+        {
+          "id": "eating_005",
+          "text": {
+            "en": "Let's eat!",
+            "de": "Lass uns essen!",
+            "tr": "Hadi yiyelim!"
+          },
+          "scene": "A family sitting down at a table full of food"
+        },
+        {
+          "id": "eating_006",
+          "text": {
+            "en": "The food is yummy.",
+            "de": "Das Essen ist lecker.",
+            "tr": "Yemek çok lezzetli."
+          },
+          "scene": "A child smiling with a happy face while eating"
+        },
+        {
+          "id": "eating_007",
+          "text": {
+            "en": "Can I have more, please?",
+            "de": "Kann ich bitte mehr haben?",
+            "tr": "Biraz daha alabilir miyim, lütfen?"
+          },
+          "scene": "A child holding up an empty plate asking for more"
+        },
+        {
+          "id": "eating_008",
+          "text": {
+            "en": "I'm full.",
+            "de": "Ich bin satt.",
+            "tr": "Doydum."
+          },
+          "scene": "A child leaning back with a full, satisfied tummy"
+        },
+        {
+          "id": "eating_009",
+          "text": {
+            "en": "I like apples.",
+            "de": "Ich mag Äpfel.",
+            "tr": "Elmaları severim."
+          },
+          "scene": "A child happily holding a red apple"
+        },
+        {
+          "id": "eating_010",
+          "text": {
+            "en": "I don't like onions.",
+            "de": "Ich mag keine Zwiebeln.",
+            "tr": "Soğanı sevmem."
+          },
+          "scene": "A child making a face while pushing onions aside"
+        },
+        {
+          "id": "eating_011",
+          "text": {
+            "en": "This is my breakfast.",
+            "de": "Das ist mein Frühstück.",
+            "tr": "Bu benim kahvaltım."
+          },
+          "scene": "A child pointing at a breakfast plate in the morning"
+        },
+        {
+          "id": "eating_012",
+          "text": {
+            "en": "It's time for lunch.",
+            "de": "Es ist Zeit für das Mittagessen.",
+            "tr": "Öğle yemeği zamanı."
+          },
+          "scene": "A child opening a lunchbox at midday"
+        },
+        {
+          "id": "eating_013",
+          "text": {
+            "en": "Dinner is ready.",
+            "de": "Das Abendessen ist fertig.",
+            "tr": "Akşam yemeği hazır."
+          },
+          "scene": "A steaming dinner on the table in the evening"
+        },
+        {
+          "id": "eating_014",
+          "text": {
+            "en": "Please pass the bread.",
+            "de": "Reich mir bitte das Brot.",
+            "tr": "Ekmeği uzatır mısın, lütfen?"
+          },
+          "scene": "A child reaching for a basket of bread at the table"
+        },
+        {
+          "id": "eating_015",
+          "text": {
+            "en": "I want an apple.",
+            "de": "Ich möchte einen Apfel.",
+            "tr": "Bir elma istiyorum."
+          },
+          "scene": "A child pointing at a single apple"
+        },
+        {
+          "id": "eating_016",
+          "text": {
+            "en": "Can I have a banana?",
+            "de": "Kann ich eine Banane haben?",
+            "tr": "Bir muz alabilir miyim?"
+          },
+          "scene": "A child reaching toward a banana"
+        },
+        {
+          "id": "eating_017",
+          "text": {
+            "en": "The soup is hot.",
+            "de": "Die Suppe ist heiß.",
+            "tr": "Çorba sıcak."
+          },
+          "scene": "A steaming bowl of soup with rising heat"
+        },
+        {
+          "id": "eating_018",
+          "text": {
+            "en": "The ice cream is cold.",
+            "de": "Das Eis ist kalt.",
+            "tr": "Dondurma soğuk."
+          },
+          "scene": "A child holding a cold ice cream cone"
+        },
+        {
+          "id": "eating_019",
+          "text": {
+            "en": "I love chocolate.",
+            "de": "Ich liebe Schokolade.",
+            "tr": "Çikolatayı çok severim."
+          },
+          "scene": "A child smiling with a chocolate bar"
+        },
+        {
+          "id": "eating_020",
+          "text": {
+            "en": "Let's bake a cake.",
+            "de": "Lass uns einen Kuchen backen.",
+            "tr": "Hadi kek yapalım."
+          },
+          "scene": "A child mixing batter in a bowl in the kitchen"
+        },
+        {
+          "id": "eating_021",
+          "text": {
+            "en": "Wash your hands before eating.",
+            "de": "Wasch deine Hände vor dem Essen.",
+            "tr": "Yemekten önce ellerini yıka."
+          },
+          "scene": "A child washing hands at a sink before a meal"
+        },
+        {
+          "id": "eating_022",
+          "text": {
+            "en": "Use your fork.",
+            "de": "Benutze deine Gabel.",
+            "tr": "Çatalını kullan."
+          },
+          "scene": "A child holding a fork over a plate"
+        },
+        {
+          "id": "eating_023",
+          "text": {
+            "en": "Use your spoon.",
+            "de": "Benutze deinen Löffel.",
+            "tr": "Kaşığını kullan."
+          },
+          "scene": "A child holding a spoon over a bowl"
+        },
+        {
+          "id": "eating_024",
+          "text": {
+            "en": "Drink your juice.",
+            "de": "Trink deinen Saft.",
+            "tr": "Meyve suyunu iç."
+          },
+          "scene": "A child drinking from a glass of orange juice"
+        },
+        {
+          "id": "eating_025",
+          "text": {
+            "en": "Eat your vegetables.",
+            "de": "Iss dein Gemüse.",
+            "tr": "Sebzelerini ye."
+          },
+          "scene": "A plate of colorful vegetables in front of a child"
+        },
+        {
+          "id": "eating_026",
+          "text": {
+            "en": "The cookies are sweet.",
+            "de": "Die Kekse sind süß.",
+            "tr": "Kurabiyeler tatlı."
+          },
+          "scene": "A child enjoying a plate of cookies"
+        },
+        {
+          "id": "eating_027",
+          "text": {
+            "en": "I want some cheese.",
+            "de": "Ich möchte etwas Käse.",
+            "tr": "Biraz peynir istiyorum."
+          },
+          "scene": "A child pointing at a slice of cheese"
+        },
+        {
+          "id": "eating_028",
+          "text": {
+            "en": "Pour the milk, please.",
+            "de": "Gieß bitte die Milch ein.",
+            "tr": "Sütü dök, lütfen."
+          },
+          "scene": "A child pouring milk into a glass"
+        },
+        {
+          "id": "eating_029",
+          "text": {
+            "en": "This tastes good.",
+            "de": "Das schmeckt gut.",
+            "tr": "Bunun tadı güzel."
+          },
+          "scene": "A child with a delighted face after a bite"
+        },
+        {
+          "id": "eating_030",
+          "text": {
+            "en": "This is too spicy.",
+            "de": "Das ist zu scharf.",
+            "tr": "Bu çok acı."
+          },
+          "scene": "A child fanning their mouth after spicy food"
+        },
+        {
+          "id": "eating_031",
+          "text": {
+            "en": "I want breakfast.",
+            "de": "Ich möchte Frühstück.",
+            "tr": "Kahvaltı istiyorum."
+          },
+          "scene": "A child pointing at breakfast foods in the morning"
+        },
+        {
+          "id": "eating_032",
+          "text": {
+            "en": "May I leave the table?",
+            "de": "Darf ich vom Tisch aufstehen?",
+            "tr": "Masadan kalkabilir miyim?"
+          },
+          "scene": "A child standing up from a finished meal at the table"
+        },
+        {
+          "id": "eating_033",
+          "text": {
+            "en": "Set the table, please.",
+            "de": "Deck bitte den Tisch.",
+            "tr": "Sofrayı kur, lütfen."
+          },
+          "scene": "A child placing plates and cutlery on a table"
+        },
+        {
+          "id": "eating_034",
+          "text": {
+            "en": "Let's have a picnic.",
+            "de": "Lass uns ein Picknick machen.",
+            "tr": "Hadi piknik yapalım."
+          },
+          "scene": "Children sitting on a blanket with food outdoors"
+        },
+        {
+          "id": "eating_035",
+          "text": {
+            "en": "The plate is empty.",
+            "de": "Der Teller ist leer.",
+            "tr": "Tabak boş."
+          },
+          "scene": "An empty plate on the table"
+        },
+        {
+          "id": "eating_036",
+          "text": {
+            "en": "The cup is full.",
+            "de": "Die Tasse ist voll.",
+            "tr": "Bardak dolu."
+          },
+          "scene": "A cup filled to the top with a drink"
+        },
+        {
+          "id": "eating_037",
+          "text": {
+            "en": "I want some soup.",
+            "de": "Ich möchte etwas Suppe.",
+            "tr": "Biraz çorba istiyorum."
+          },
+          "scene": "A child pointing at a bowl of soup"
+        },
+        {
+          "id": "eating_038",
+          "text": {
+            "en": "Eat slowly.",
+            "de": "Iss langsam.",
+            "tr": "Yavaş ye."
+          },
+          "scene": "A child calmly taking a small bite"
+        },
+        {
+          "id": "eating_039",
+          "text": {
+            "en": "Don't talk with your mouth full.",
+            "de": "Sprich nicht mit vollem Mund.",
+            "tr": "Ağzın doluyken konuşma."
+          },
+          "scene": "A child covering their mouth while chewing"
+        },
+        {
+          "id": "eating_040",
+          "text": {
+            "en": "Can I have a snack?",
+            "de": "Kann ich einen Snack haben?",
+            "tr": "Bir atıştırmalık alabilir miyim?"
+          },
+          "scene": "A child reaching for a small snack between meals"
+        },
+        {
+          "id": "eating_041",
+          "text": {
+            "en": "The fruit is fresh.",
+            "de": "Das Obst ist frisch.",
+            "tr": "Meyve taze."
+          },
+          "scene": "A bowl of bright, fresh fruit"
+        },
+        {
+          "id": "eating_042",
+          "text": {
+            "en": "I want rice.",
+            "de": "Ich möchte Reis.",
+            "tr": "Pilav istiyorum."
+          },
+          "scene": "A child pointing at a plate of rice"
+        },
+        {
+          "id": "eating_043",
+          "text": {
+            "en": "Pass the salt, please.",
+            "de": "Reich mir bitte das Salz.",
+            "tr": "Tuzu uzatır mısın, lütfen?"
+          },
+          "scene": "A child reaching for a salt shaker at the table"
+        },
+        {
+          "id": "eating_044",
+          "text": {
+            "en": "I'm a little hungry.",
+            "de": "Ich habe ein bisschen Hunger.",
+            "tr": "Biraz açım."
+          },
+          "scene": "A child touching their tummy with a small frown"
+        },
+        {
+          "id": "eating_045",
+          "text": {
+            "en": "Let's share the cake.",
+            "de": "Lass uns den Kuchen teilen.",
+            "tr": "Hadi keki paylaşalım."
+          },
+          "scene": "Two children splitting a slice of cake"
+        },
+        {
+          "id": "eating_046",
+          "text": {
+            "en": "Help me cook.",
+            "de": "Hilf mir beim Kochen.",
+            "tr": "Yemek yapmama yardım et."
+          },
+          "scene": "A child and a parent cooking together in the kitchen"
+        },
+        {
+          "id": "eating_047",
+          "text": {
+            "en": "The egg is warm.",
+            "de": "Das Ei ist warm.",
+            "tr": "Yumurta ılık."
+          },
+          "scene": "A child holding a warm boiled egg"
+        },
+        {
+          "id": "eating_048",
+          "text": {
+            "en": "I want a sandwich.",
+            "de": "Ich möchte ein Sandwich.",
+            "tr": "Sandviç istiyorum."
+          },
+          "scene": "A child pointing at a sandwich on a plate"
+        },
+        {
+          "id": "eating_049",
+          "text": {
+            "en": "Open your mouth.",
+            "de": "Mach deinen Mund auf.",
+            "tr": "Ağzını aç."
+          },
+          "scene": "A child opening their mouth for a spoonful of food"
+        },
+        {
+          "id": "eating_050",
+          "text": {
+            "en": "Thank you for the food.",
+            "de": "Danke für das Essen.",
+            "tr": "Yemek için teşekkürler."
+          },
+          "scene": "A child smiling and thanking a cook after a meal"
+        }
+      ]
+    },
+    {
+      "id": "playing",
+      "name": {
+        "en": "Playing",
+        "de": "Spielen",
+        "tr": "Oyun"
+      },
+      "phrases": [
+        {
+          "id": "playing_001",
+          "text": {
+            "en": "Let's play!",
+            "de": "Lass uns spielen!",
+            "tr": "Hadi oynayalım!"
+          },
+          "scene": "Two children running toward toys with big smiles"
+        },
+        {
+          "id": "playing_002",
+          "text": {
+            "en": "Can I play too?",
+            "de": "Kann ich auch mitspielen?",
+            "tr": "Ben de oynayabilir miyim?"
+          },
+          "scene": "A child asking to join a group already playing"
+        },
+        {
+          "id": "playing_003",
+          "text": {
+            "en": "It's my turn.",
+            "de": "Ich bin dran.",
+            "tr": "Sıra bende."
+          },
+          "scene": "A child pointing at themselves during a board game"
+        },
+        {
+          "id": "playing_004",
+          "text": {
+            "en": "It's your turn.",
+            "de": "Du bist dran.",
+            "tr": "Sıra sende."
+          },
+          "scene": "A child pointing at a friend during a game"
+        },
+        {
+          "id": "playing_005",
+          "text": {
+            "en": "Throw the ball.",
+            "de": "Wirf den Ball.",
+            "tr": "Topu at."
+          },
+          "scene": "A child winding up to throw a ball"
+        },
+        {
+          "id": "playing_006",
+          "text": {
+            "en": "Catch the ball!",
+            "de": "Fang den Ball!",
+            "tr": "Topu yakala!"
+          },
+          "scene": "A child reaching up to catch a flying ball"
+        },
+        {
+          "id": "playing_007",
+          "text": {
+            "en": "Kick the ball.",
+            "de": "Kick den Ball.",
+            "tr": "Topa vur."
+          },
+          "scene": "A child kicking a soccer ball with their foot"
+        },
+        {
+          "id": "playing_008",
+          "text": {
+            "en": "Let's run!",
+            "de": "Lass uns rennen!",
+            "tr": "Hadi koşalım!"
+          },
+          "scene": "Two children running side by side outdoors"
+        },
+        {
+          "id": "playing_009",
+          "text": {
+            "en": "Let's jump!",
+            "de": "Lass uns springen!",
+            "tr": "Hadi zıplayalım!"
+          },
+          "scene": "Children jumping up high together"
+        },
+        {
+          "id": "playing_010",
+          "text": {
+            "en": "I won the game!",
+            "de": "Ich habe das Spiel gewonnen!",
+            "tr": "Oyunu kazandım!"
+          },
+          "scene": "A cheering child holding arms up in victory"
+        },
+        {
+          "id": "playing_011",
+          "text": {
+            "en": "You won!",
+            "de": "Du hast gewonnen!",
+            "tr": "Sen kazandın!"
+          },
+          "scene": "A child pointing happily at a winning friend"
+        },
+        {
+          "id": "playing_012",
+          "text": {
+            "en": "Let's play again.",
+            "de": "Lass uns nochmal spielen.",
+            "tr": "Hadi tekrar oynayalım."
+          },
+          "scene": "Two children resetting a game to play once more"
+        },
+        {
+          "id": "playing_013",
+          "text": {
+            "en": "That was fun!",
+            "de": "Das hat Spaß gemacht!",
+            "tr": "Çok eğlenceliydi!"
+          },
+          "scene": "Two children laughing together after a game"
+        },
+        {
+          "id": "playing_014",
+          "text": {
+            "en": "Let's go to the park.",
+            "de": "Lass uns in den Park gehen.",
+            "tr": "Hadi parka gidelim."
+          },
+          "scene": "Children walking toward a park with a playground"
+        },
+        {
+          "id": "playing_015",
+          "text": {
+            "en": "Push me on the swing.",
+            "de": "Schubs mich auf der Schaukel.",
+            "tr": "Beni salıncakta it."
+          },
+          "scene": "A child on a swing being pushed by a friend"
+        },
+        {
+          "id": "playing_016",
+          "text": {
+            "en": "Let's go down the slide.",
+            "de": "Lass uns die Rutsche runterrutschen.",
+            "tr": "Hadi kaydıraktan kayalım."
+          },
+          "scene": "A child sliding down a playground slide"
+        },
+        {
+          "id": "playing_017",
+          "text": {
+            "en": "Build a sandcastle.",
+            "de": "Bau eine Sandburg.",
+            "tr": "Kumdan kale yap."
+          },
+          "scene": "A child building a sandcastle in a sandbox"
+        },
+        {
+          "id": "playing_018",
+          "text": {
+            "en": "Let's play hide-and-seek.",
+            "de": "Lass uns Verstecken spielen.",
+            "tr": "Hadi saklambaç oynayalım."
+          },
+          "scene": "A child hiding behind a tree while another counts"
+        },
+        {
+          "id": "playing_019",
+          "text": {
+            "en": "Count to ten.",
+            "de": "Zähl bis zehn.",
+            "tr": "Ona kadar say."
+          },
+          "scene": "A child covering their eyes and counting on fingers"
+        },
+        {
+          "id": "playing_020",
+          "text": {
+            "en": "I found you!",
+            "de": "Ich habe dich gefunden!",
+            "tr": "Seni buldum!"
+          },
+          "scene": "A child happily discovering a hiding friend"
+        },
+        {
+          "id": "playing_021",
+          "text": {
+            "en": "Tag, you're it!",
+            "de": "Fang mich, du bist dran!",
+            "tr": "Ebe sensin!"
+          },
+          "scene": "A child tagging another while running in a game of tag"
+        },
+        {
+          "id": "playing_022",
+          "text": {
+            "en": "Let's draw a picture.",
+            "de": "Lass uns ein Bild malen.",
+            "tr": "Hadi resim çizelim."
+          },
+          "scene": "A child drawing on paper with crayons"
+        },
+        {
+          "id": "playing_023",
+          "text": {
+            "en": "Color the picture.",
+            "de": "Mal das Bild aus.",
+            "tr": "Resmi boya."
+          },
+          "scene": "A child coloring inside a drawing with crayons"
+        },
+        {
+          "id": "playing_024",
+          "text": {
+            "en": "Let's build with blocks.",
+            "de": "Lass uns mit Bausteinen bauen.",
+            "tr": "Hadi bloklarla yapı kuralım."
+          },
+          "scene": "A child stacking colorful building blocks"
+        },
+        {
+          "id": "playing_025",
+          "text": {
+            "en": "Pass me the toy.",
+            "de": "Reich mir das Spielzeug.",
+            "tr": "Oyuncağı bana ver."
+          },
+          "scene": "A child handing a toy to a friend"
+        },
+        {
+          "id": "playing_026",
+          "text": {
+            "en": "Let's share the toys.",
+            "de": "Lass uns die Spielsachen teilen.",
+            "tr": "Hadi oyuncakları paylaşalım."
+          },
+          "scene": "Two children splitting a pile of toys fairly"
+        },
+        {
+          "id": "playing_027",
+          "text": {
+            "en": "Be careful!",
+            "de": "Sei vorsichtig!",
+            "tr": "Dikkatli ol!"
+          },
+          "scene": "A child warning a friend near a wobbly tower"
+        },
+        {
+          "id": "playing_028",
+          "text": {
+            "en": "Wait for me!",
+            "de": "Warte auf mich!",
+            "tr": "Beni bekle!"
+          },
+          "scene": "A child running to catch up with friends ahead"
+        },
+        {
+          "id": "playing_029",
+          "text": {
+            "en": "Let's ride bikes.",
+            "de": "Lass uns Fahrrad fahren.",
+            "tr": "Hadi bisiklete binelim."
+          },
+          "scene": "Children riding bicycles together"
+        },
+        {
+          "id": "playing_030",
+          "text": {
+            "en": "Let's play ball.",
+            "de": "Lass uns Ball spielen.",
+            "tr": "Hadi top oynayalım."
+          },
+          "scene": "Children tossing a ball back and forth"
+        },
+        {
+          "id": "playing_031",
+          "text": {
+            "en": "Can I borrow your toy?",
+            "de": "Kann ich dein Spielzeug ausleihen?",
+            "tr": "Oyuncağını ödünç alabilir miyim?"
+          },
+          "scene": "A child asking a friend to borrow a toy"
+        },
+        {
+          "id": "playing_032",
+          "text": {
+            "en": "Let's play together.",
+            "de": "Lass uns zusammen spielen.",
+            "tr": "Hadi birlikte oynayalım."
+          },
+          "scene": "Several children playing happily as a group"
+        },
+        {
+          "id": "playing_033",
+          "text": {
+            "en": "Don't push.",
+            "de": "Nicht schubsen.",
+            "tr": "İtme."
+          },
+          "scene": "A child gently telling another not to push"
+        },
+        {
+          "id": "playing_034",
+          "text": {
+            "en": "Let's take turns.",
+            "de": "Lass uns abwechseln.",
+            "tr": "Sırayla oynayalım."
+          },
+          "scene": "Children lining up to take turns on a slide"
+        },
+        {
+          "id": "playing_035",
+          "text": {
+            "en": "Let's dance!",
+            "de": "Lass uns tanzen!",
+            "tr": "Hadi dans edelim!"
+          },
+          "scene": "Children dancing happily to music"
+        },
+        {
+          "id": "playing_036",
+          "text": {
+            "en": "Let's sing a song.",
+            "de": "Lass uns ein Lied singen.",
+            "tr": "Hadi şarkı söyleyelim."
+          },
+          "scene": "Children singing together with open mouths"
+        },
+        {
+          "id": "playing_037",
+          "text": {
+            "en": "Clap your hands.",
+            "de": "Klatsch in die Hände.",
+            "tr": "Ellerini çırp."
+          },
+          "scene": "A child clapping hands together"
+        },
+        {
+          "id": "playing_038",
+          "text": {
+            "en": "Spin around.",
+            "de": "Dreh dich im Kreis.",
+            "tr": "Etrafında dön."
+          },
+          "scene": "A child spinning in a circle with arms out"
+        },
+        {
+          "id": "playing_039",
+          "text": {
+            "en": "Let's fly the kite.",
+            "de": "Lass uns den Drachen steigen lassen.",
+            "tr": "Hadi uçurtma uçuralım."
+          },
+          "scene": "A child flying a kite in a windy sky"
+        },
+        {
+          "id": "playing_040",
+          "text": {
+            "en": "Hop like a bunny.",
+            "de": "Hüpf wie ein Hase.",
+            "tr": "Tavşan gibi zıpla."
+          },
+          "scene": "A child hopping with hands up like bunny ears"
+        },
+        {
+          "id": "playing_041",
+          "text": {
+            "en": "Run fast!",
+            "de": "Lauf schnell!",
+            "tr": "Hızlı koş!"
+          },
+          "scene": "A child sprinting quickly with motion lines"
+        },
+        {
+          "id": "playing_042",
+          "text": {
+            "en": "Stop here.",
+            "de": "Halt hier an.",
+            "tr": "Burada dur."
+          },
+          "scene": "A child stopping with a hand raised"
+        },
+        {
+          "id": "playing_043",
+          "text": {
+            "en": "Let's play with the dolls.",
+            "de": "Lass uns mit den Puppen spielen.",
+            "tr": "Hadi bebeklerle oynayalım."
+          },
+          "scene": "A child playing with dolls on the floor"
+        },
+        {
+          "id": "playing_044",
+          "text": {
+            "en": "Let's race!",
+            "de": "Lass uns ein Rennen machen!",
+            "tr": "Hadi yarışalım!"
+          },
+          "scene": "Two children at a starting line ready to race"
+        },
+        {
+          "id": "playing_045",
+          "text": {
+            "en": "Roll the dice.",
+            "de": "Würfle.",
+            "tr": "Zarı at."
+          },
+          "scene": "A child rolling dice during a board game"
+        },
+        {
+          "id": "playing_046",
+          "text": {
+            "en": "It's a tie!",
+            "de": "Es ist unentschieden!",
+            "tr": "Berabere!"
+          },
+          "scene": "Two children with equal scores shrugging happily"
+        },
+        {
+          "id": "playing_047",
+          "text": {
+            "en": "Good game!",
+            "de": "Gutes Spiel!",
+            "tr": "İyi oyundu!"
+          },
+          "scene": "Two children shaking hands after a game"
+        },
+        {
+          "id": "playing_048",
+          "text": {
+            "en": "Let's play outside.",
+            "de": "Lass uns draußen spielen.",
+            "tr": "Hadi dışarıda oynayalım."
+          },
+          "scene": "Children running out the door to play outdoors"
+        },
+        {
+          "id": "playing_049",
+          "text": {
+            "en": "Let's play inside.",
+            "de": "Lass uns drinnen spielen.",
+            "tr": "Hadi içeride oynayalım."
+          },
+          "scene": "Children playing with toys indoors on a rainy day"
+        },
+        {
+          "id": "playing_050",
+          "text": {
+            "en": "Time to clean up the toys.",
+            "de": "Zeit, die Spielsachen aufzuräumen.",
+            "tr": "Oyuncakları toplama zamanı."
+          },
+          "scene": "A child putting toys back into a toy box"
+        }
+      ]
+    },
+    {
+      "id": "feelings_body",
+      "name": {
+        "en": "Feelings & Body",
+        "de": "Gefühle & Körper",
+        "tr": "Duygular ve Vücut"
+      },
+      "phrases": [
+        {
+          "id": "feelings_body_001",
+          "text": {
+            "en": "I'm happy.",
+            "de": "Ich bin glücklich.",
+            "tr": "Mutluyum."
+          },
+          "scene": "A child with a big bright smile"
+        },
+        {
+          "id": "feelings_body_002",
+          "text": {
+            "en": "I'm sad.",
+            "de": "Ich bin traurig.",
+            "tr": "Üzgünüm."
+          },
+          "scene": "A child with a sad face and a single tear"
+        },
+        {
+          "id": "feelings_body_003",
+          "text": {
+            "en": "I'm tired.",
+            "de": "Ich bin müde.",
+            "tr": "Yorgunum."
+          },
+          "scene": "A child yawning and rubbing their eyes"
+        },
+        {
+          "id": "feelings_body_004",
+          "text": {
+            "en": "I'm angry.",
+            "de": "Ich bin wütend.",
+            "tr": "Kızgınım."
+          },
+          "scene": "A child with crossed arms and a frowning face"
+        },
+        {
+          "id": "feelings_body_005",
+          "text": {
+            "en": "I'm scared.",
+            "de": "Ich habe Angst.",
+            "tr": "Korkuyorum."
+          },
+          "scene": "A child hiding behind a blanket looking afraid"
+        },
+        {
+          "id": "feelings_body_006",
+          "text": {
+            "en": "I'm excited.",
+            "de": "Ich bin aufgeregt.",
+            "tr": "Heyecanlıyım."
+          },
+          "scene": "A child jumping with sparkling excited eyes"
+        },
+        {
+          "id": "feelings_body_007",
+          "text": {
+            "en": "I feel good.",
+            "de": "Ich fühle mich gut.",
+            "tr": "İyi hissediyorum."
+          },
+          "scene": "A relaxed, smiling child giving a thumbs up"
+        },
+        {
+          "id": "feelings_body_008",
+          "text": {
+            "en": "I'm sleepy.",
+            "de": "Ich bin schläfrig.",
+            "tr": "Uykum var."
+          },
+          "scene": "A child with droopy eyes holding a teddy bear"
+        },
+        {
+          "id": "feelings_body_009",
+          "text": {
+            "en": "I'm bored.",
+            "de": "Mir ist langweilig.",
+            "tr": "Sıkıldım."
+          },
+          "scene": "A child resting their chin on a hand looking bored"
+        },
+        {
+          "id": "feelings_body_010",
+          "text": {
+            "en": "I'm surprised.",
+            "de": "Ich bin überrascht.",
+            "tr": "Şaşırdım."
+          },
+          "scene": "A child with wide eyes and an open mouth"
+        },
+        {
+          "id": "feelings_body_011",
+          "text": {
+            "en": "I love you.",
+            "de": "Ich liebe dich.",
+            "tr": "Seni seviyorum."
+          },
+          "scene": "A child hugging a parent with a heart above them"
+        },
+        {
+          "id": "feelings_body_012",
+          "text": {
+            "en": "I miss you.",
+            "de": "Ich vermisse dich.",
+            "tr": "Seni özledim."
+          },
+          "scene": "A child looking at a photo with a longing face"
+        },
+        {
+          "id": "feelings_body_013",
+          "text": {
+            "en": "Don't cry.",
+            "de": "Wein nicht.",
+            "tr": "Ağlama."
+          },
+          "scene": "A child comforting a crying friend"
+        },
+        {
+          "id": "feelings_body_014",
+          "text": {
+            "en": "It's okay.",
+            "de": "Es ist okay.",
+            "tr": "Sorun değil."
+          },
+          "scene": "A child gently reassuring another with a calm smile"
+        },
+        {
+          "id": "feelings_body_015",
+          "text": {
+            "en": "I feel sick.",
+            "de": "Mir ist schlecht.",
+            "tr": "Kendimi hasta hissediyorum."
+          },
+          "scene": "A child lying down with a thermometer looking unwell"
+        },
+        {
+          "id": "feelings_body_016",
+          "text": {
+            "en": "I'm cold.",
+            "de": "Mir ist kalt.",
+            "tr": "Üşüyorum."
+          },
+          "scene": "A child shivering and wrapped in a blanket"
+        },
+        {
+          "id": "feelings_body_017",
+          "text": {
+            "en": "I'm hot.",
+            "de": "Mir ist heiß.",
+            "tr": "Sıcakladım."
+          },
+          "scene": "A child sweating and fanning themselves in the sun"
+        },
+        {
+          "id": "feelings_body_018",
+          "text": {
+            "en": "I'm proud.",
+            "de": "Ich bin stolz.",
+            "tr": "Gurur duyuyorum."
+          },
+          "scene": "A child standing tall holding a gold star"
+        },
+        {
+          "id": "feelings_body_019",
+          "text": {
+            "en": "I feel great.",
+            "de": "Ich fühle mich großartig.",
+            "tr": "Harika hissediyorum."
+          },
+          "scene": "A child jumping with both arms raised joyfully"
+        },
+        {
+          "id": "feelings_body_020",
+          "text": {
+            "en": "I'm a little nervous.",
+            "de": "Ich bin ein bisschen nervös.",
+            "tr": "Biraz gerginim."
+          },
+          "scene": "A child fidgeting with hands and a worried smile"
+        },
+        {
+          "id": "feelings_body_021",
+          "text": {
+            "en": "Give me a hug.",
+            "de": "Umarme mich.",
+            "tr": "Bana sarıl."
+          },
+          "scene": "A child reaching out with open arms for a hug"
+        },
+        {
+          "id": "feelings_body_022",
+          "text": {
+            "en": "I want to rest.",
+            "de": "Ich möchte mich ausruhen.",
+            "tr": "Dinlenmek istiyorum."
+          },
+          "scene": "A child lying down to rest on a couch"
+        },
+        {
+          "id": "feelings_body_023",
+          "text": {
+            "en": "Cheer up!",
+            "de": "Kopf hoch!",
+            "tr": "Neşelen!"
+          },
+          "scene": "A child encouraging a sad friend to smile"
+        },
+        {
+          "id": "feelings_body_024",
+          "text": {
+            "en": "Don't be afraid.",
+            "de": "Hab keine Angst.",
+            "tr": "Korkma."
+          },
+          "scene": "A child holding a friend's hand reassuringly"
+        },
+        {
+          "id": "feelings_body_025",
+          "text": {
+            "en": "I'm so happy today.",
+            "de": "Ich bin heute so glücklich.",
+            "tr": "Bugün çok mutluyum."
+          },
+          "scene": "A beaming child with sunshine in the background"
+        },
+        {
+          "id": "feelings_body_026",
+          "text": {
+            "en": "This is my head.",
+            "de": "Das ist mein Kopf.",
+            "tr": "Bu benim kafam."
+          },
+          "scene": "A child pointing to their own head"
+        },
+        {
+          "id": "feelings_body_027",
+          "text": {
+            "en": "These are my eyes.",
+            "de": "Das sind meine Augen.",
+            "tr": "Bunlar benim gözlerim."
+          },
+          "scene": "A child pointing to both of their eyes"
+        },
+        {
+          "id": "feelings_body_028",
+          "text": {
+            "en": "This is my nose.",
+            "de": "Das ist meine Nase.",
+            "tr": "Bu benim burnum."
+          },
+          "scene": "A child pointing to their nose"
+        },
+        {
+          "id": "feelings_body_029",
+          "text": {
+            "en": "This is my mouth.",
+            "de": "Das ist mein Mund.",
+            "tr": "Bu benim ağzım."
+          },
+          "scene": "A child pointing to their open mouth"
+        },
+        {
+          "id": "feelings_body_030",
+          "text": {
+            "en": "These are my ears.",
+            "de": "Das sind meine Ohren.",
+            "tr": "Bunlar benim kulaklarım."
+          },
+          "scene": "A child touching both ears"
+        },
+        {
+          "id": "feelings_body_031",
+          "text": {
+            "en": "These are my hands.",
+            "de": "Das sind meine Hände.",
+            "tr": "Bunlar benim ellerim."
+          },
+          "scene": "A child holding up both hands"
+        },
+        {
+          "id": "feelings_body_032",
+          "text": {
+            "en": "These are my feet.",
+            "de": "Das sind meine Füße.",
+            "tr": "Bunlar benim ayaklarım."
+          },
+          "scene": "A child pointing down at their bare feet"
+        },
+        {
+          "id": "feelings_body_033",
+          "text": {
+            "en": "This is my arm.",
+            "de": "Das ist mein Arm.",
+            "tr": "Bu benim kolum."
+          },
+          "scene": "A child holding out and pointing to one arm"
+        },
+        {
+          "id": "feelings_body_034",
+          "text": {
+            "en": "This is my leg.",
+            "de": "Das ist mein Bein.",
+            "tr": "Bu benim bacağım."
+          },
+          "scene": "A child pointing to their leg"
+        },
+        {
+          "id": "feelings_body_035",
+          "text": {
+            "en": "This is my tummy.",
+            "de": "Das ist mein Bauch.",
+            "tr": "Bu benim karnım."
+          },
+          "scene": "A child patting their own tummy"
+        },
+        {
+          "id": "feelings_body_036",
+          "text": {
+            "en": "My head hurts.",
+            "de": "Mein Kopf tut weh.",
+            "tr": "Başım ağrıyor."
+          },
+          "scene": "A child holding their head with a pained face"
+        },
+        {
+          "id": "feelings_body_037",
+          "text": {
+            "en": "My tummy hurts.",
+            "de": "Mein Bauch tut weh.",
+            "tr": "Karnım ağrıyor."
+          },
+          "scene": "A child clutching their tummy and frowning"
+        },
+        {
+          "id": "feelings_body_038",
+          "text": {
+            "en": "My tooth hurts.",
+            "de": "Mein Zahn tut weh.",
+            "tr": "Dişim ağrıyor."
+          },
+          "scene": "A child holding their cheek with a sore tooth"
+        },
+        {
+          "id": "feelings_body_039",
+          "text": {
+            "en": "Touch your nose.",
+            "de": "Berühr deine Nase.",
+            "tr": "Burnuna dokun."
+          },
+          "scene": "A child touching the tip of their nose"
+        },
+        {
+          "id": "feelings_body_040",
+          "text": {
+            "en": "Wiggle your fingers.",
+            "de": "Wackel mit den Fingern.",
+            "tr": "Parmaklarını oynat."
+          },
+          "scene": "A child wiggling all their fingers in the air"
+        },
+        {
+          "id": "feelings_body_041",
+          "text": {
+            "en": "Stomp your feet.",
+            "de": "Stampf mit den Füßen.",
+            "tr": "Ayaklarını yere vur."
+          },
+          "scene": "A child stomping both feet on the ground"
+        },
+        {
+          "id": "feelings_body_042",
+          "text": {
+            "en": "Open your eyes.",
+            "de": "Mach deine Augen auf.",
+            "tr": "Gözlerini aç."
+          },
+          "scene": "A child opening their eyes wide"
+        },
+        {
+          "id": "feelings_body_043",
+          "text": {
+            "en": "Close your eyes.",
+            "de": "Mach deine Augen zu.",
+            "tr": "Gözlerini kapat."
+          },
+          "scene": "A child with both eyes closed gently"
+        },
+        {
+          "id": "feelings_body_044",
+          "text": {
+            "en": "Wash your face.",
+            "de": "Wasch dein Gesicht.",
+            "tr": "Yüzünü yıka."
+          },
+          "scene": "A child washing their face with water"
+        },
+        {
+          "id": "feelings_body_045",
+          "text": {
+            "en": "Brush your teeth.",
+            "de": "Putz deine Zähne.",
+            "tr": "Dişlerini fırçala."
+          },
+          "scene": "A child brushing teeth with a toothbrush"
+        },
+        {
+          "id": "feelings_body_046",
+          "text": {
+            "en": "Comb your hair.",
+            "de": "Kämm deine Haare.",
+            "tr": "Saçını tara."
+          },
+          "scene": "A child combing their hair in front of a mirror"
+        },
+        {
+          "id": "feelings_body_047",
+          "text": {
+            "en": "My hands are dirty.",
+            "de": "Meine Hände sind schmutzig.",
+            "tr": "Ellerim kirli."
+          },
+          "scene": "A child showing muddy, dirty hands"
+        },
+        {
+          "id": "feelings_body_048",
+          "text": {
+            "en": "My hands are clean.",
+            "de": "Meine Hände sind sauber.",
+            "tr": "Ellerim temiz."
+          },
+          "scene": "A child showing fresh, clean hands after washing"
+        },
+        {
+          "id": "feelings_body_049",
+          "text": {
+            "en": "I can smile.",
+            "de": "Ich kann lächeln.",
+            "tr": "Gülümseyebilirim."
+          },
+          "scene": "A child showing a big happy smile"
+        },
+        {
+          "id": "feelings_body_050",
+          "text": {
+            "en": "Point to your knee.",
+            "de": "Zeig auf dein Knie.",
+            "tr": "Dizini göster."
+          },
+          "scene": "A child pointing down at their knee"
+        }
+      ]
+    }
+  ]
+}

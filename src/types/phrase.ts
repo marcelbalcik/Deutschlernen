@@ -8,7 +8,7 @@
 //                       components consume PhraseItem so they never care which
 //                       parent language is selected.
 
-export type CategoryId = "greetings" | "eating" | "playing" | "health" | "kita";
+export type CategoryId = "greetings" | "eating" | "playing" | "feelings_body";
 
 export type SourceLanguage = "en" | "tr";
 

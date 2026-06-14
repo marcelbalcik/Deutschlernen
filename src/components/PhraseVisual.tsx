@@ -10,18 +10,18 @@ type Props = {
 };
 
 /**
- * Renders a phrase's visual. Tries the real illustration at the exercise
- * folder (public/exercises/<id>/image.png); if it isn't there yet, falls back
- * to the emoji placeholder. Dropping an image into the folder is enough — no
- * code or data change. A plain <img> (not next/image) is used so the onError
- * fallback works cleanly for files that don't exist.
+ * Renders a phrase's picture, falling back to the emoji if there's no image or
+ * the file fails to load. We track the *failed src* (not a boolean) so the
+ * fallback is specific to one image — when the phrase changes, the new src is
+ * shown again instead of the emoji sticking around.
  */
 export default function PhraseVisual({ phrase, size = 140 }: Props) {
-  const [failed, setFailed] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
 
-  // No manifest entry → don't even request the file; show the emoji. (Avoids a
-  // 404 per phrase while you're still in the emoji-placeholder phase.)
-  if (failed || !hasImage(phrase)) {
+  const hasPicture = !!phrase.imageAsset || hasImage(phrase);
+  const src = hasPicture ? imageUrl(phrase) : null;
+
+  if (!src || failedSrc === src) {
     return (
       <span className="visual" style={{ fontSize: size }} aria-hidden>
         {phrase.emoji}
@@ -32,12 +32,12 @@ export default function PhraseVisual({ phrase, size = 140 }: Props) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={imageUrl(phrase)}
+      src={src}
       alt=""
       width={size}
       height={size}
       style={{ objectFit: "contain" }}
-      onError={() => setFailed(true)}
+      onError={() => setFailedSrc(src)}
     />
   );
 }

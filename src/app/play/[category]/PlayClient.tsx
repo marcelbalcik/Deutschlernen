@@ -9,7 +9,7 @@ import TopBar from "@/components/TopBar";
 import { getPhrases, getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
-import { playPhraseItem } from "@/lib/audio";
+import { playPhraseItem, playTargetThenNative } from "@/lib/audio";
 import { markCorrect } from "@/lib/progress";
 import type { PhraseItem } from "@/types/phrase";
 
@@ -17,6 +17,9 @@ type Round = {
   target: PhraseItem;
   options: PhraseItem[];
 };
+
+// Young children need short sessions, not all 50 phrases at once.
+const SESSION_SIZE = 8;
 
 // Stable shuffle helper.
 function shuffle<T>(arr: T[]): T[] {
@@ -29,9 +32,10 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 /**
- * Listen & Tap: the app speaks a German phrase, the child taps the matching
- * picture out of 3. Wrong taps are gentle (shake/red, no score loss); right
- * taps celebrate and advance. Recognition before production.
+ * Listen & Pick: the app speaks a German phrase, the child taps the matching
+ * picture out of 2. Wrong taps are gentle (no score loss); a correct tap
+ * celebrates, then replays the German phrase followed by its translation in the
+ * child's language, and advances. Recognition before production.
  */
 export default function PlayClient() {
   const params = useParams();
@@ -41,21 +45,29 @@ export default function PlayClient() {
 
   const category = getCategory(categoryId);
 
+  const [round, setRound] = useState(0);
+  const [picked, setPicked] = useState<string | null>(null);
+  const [solved, setSolved] = useState<number[]>([]);
+  const [seed, setSeed] = useState(0); // bump to reshuffle a fresh session
+
   const rounds: Round[] = useMemo(() => {
     if (!ready) return [];
     const inCategory = getPhrasesByCategory(categoryId, source);
     const all = getPhrases(source);
-    return shuffle(inCategory).map((target) => {
-      const distractors = shuffle(
-        all.filter((p) => p.id !== target.id)
-      ).slice(0, 2);
-      return { target, options: shuffle([target, ...distractors]) };
+    const session = shuffle(inCategory).slice(0, SESSION_SIZE);
+    return session.map((target) => {
+      // Two cards: the correct one plus ONE distractor from a *different*
+      // category, so the two pictures are clearly distinct (avoids two
+      // near-identical scenes within the same pack).
+      const otherCategory = all.filter((p) => p.category !== target.category);
+      const pool = otherCategory.length
+        ? otherCategory
+        : all.filter((p) => p.id !== target.id);
+      return { target, options: shuffle([target, shuffle(pool)[0]]) };
     });
-  }, [categoryId, source, ready]);
-
-  const [round, setRound] = useState(0);
-  const [picked, setPicked] = useState<string | null>(null);
-  const [solved, setSolved] = useState<number[]>([]);
+    // seed is intentionally a dep so "play again" makes a new random session.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryId, source, ready, seed]);
 
   const current = rounds[round];
 
@@ -77,14 +89,14 @@ export default function PlayClient() {
   }
 
   if (!ready || rounds.length === 0) {
-    return <TopBar title={category.title} backHref="/" />;
+    return <TopBar title={category.title} backHref="/play" />;
   }
 
   // Finished all rounds.
   if (round >= rounds.length) {
     return (
       <>
-        <TopBar title={category.title} backHref="/" />
+        <TopBar title={category.title} backHref="/play" />
         <div className="flashcard" style={{ cursor: "default" }}>
           <span className="visual" style={{ fontSize: 120 }} aria-hidden>
             🎉
@@ -104,6 +116,7 @@ export default function PlayClient() {
               setRound(0);
               setSolved([]);
               setPicked(null);
+              setSeed((s) => s + 1); // new random set of phrases
             }}
           >
             🔁 Nochmal spielen
@@ -121,12 +134,15 @@ export default function PlayClient() {
     setPicked(p.id);
 
     if (p.id === current.target.id) {
-      markCorrect(current.target.id);
+      const target = current.target;
+      markCorrect(target.id);
       setSolved((s) => [...s, round]);
-      setTimeout(() => {
+      // Reinforcement: hear the German phrase again, then the translation, then
+      // move on. Kicked off inside the tap so mobile audio is allowed to play.
+      void playTargetThenNative(target).finally(() => {
         setPicked(null);
         setRound((r) => r + 1);
-      }, 1100);
+      });
     } else {
       // Gentle: clear the wrong state and let them try again.
       setTimeout(() => setPicked(null), 700);
@@ -135,7 +151,7 @@ export default function PlayClient() {
 
   return (
     <>
-      <TopBar title={category.title} backHref="/" />
+      <TopBar title={category.title} backHref="/play" />
       <ProgressDots total={rounds.length} current={round} done={solved} />
 
       <div className="play-prompt">
@@ -143,7 +159,7 @@ export default function PlayClient() {
         <AudioButton phrase={current.target} label="🔊 Nochmal" />
       </div>
 
-      <div className="choice-grid" style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
+      <div className="choice-grid">
         {current.options.map((opt) => {
           let state: "idle" | "correct" | "wrong" = "idle";
           if (picked) {

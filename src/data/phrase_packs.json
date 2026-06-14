@@ -175,7 +175,7 @@
           "id": "greetings_018",
           "text": {
             "en": "You're welcome.",
-            "de": "Bitte.",
+            "de": "Gern geschehen!",
             "tr": "Rica ederim."
           },
           "scene": "A child smiling kindly after helping someone"
@@ -310,7 +310,7 @@
           "id": "greetings_033",
           "text": {
             "en": "Give me a high five!",
-            "de": "Gib mir ein Abklatschen!",
+            "de": "Gib mir fünf!",
             "tr": "Çak bir beşlik!"
           },
           "scene": "Two children high-fiving with big smiles"
@@ -346,7 +346,7 @@
           "id": "greetings_037",
           "text": {
             "en": "How is your day?",
-            "de": "Wie ist dein Tag?",
+            "de": "Wie war dein Tag?",
             "tr": "Günün nasıl?"
           },
           "scene": "A child asking a friend about their day on a bench"
@@ -355,7 +355,7 @@
           "id": "greetings_038",
           "text": {
             "en": "Have a good night!",
-            "de": "Hab eine gute Nacht!",
+            "de": "Schlaf schön!",
             "tr": "İyi geceler dilerim!"
           },
           "scene": "A child waving goodnight under a moon and stars"
@@ -996,7 +996,7 @@
           "id": "playing_007",
           "text": {
             "en": "Kick the ball.",
-            "de": "Kick den Ball.",
+            "de": "Schieß den Ball!",
             "tr": "Topa vur."
           },
           "scene": "A child kicking a soccer ball with their foot"
@@ -1068,7 +1068,7 @@
           "id": "playing_015",
           "text": {
             "en": "Push me on the swing.",
-            "de": "Schubs mich auf der Schaukel.",
+            "de": "Schubs mich an!",
             "tr": "Beni salıncakta it."
           },
           "scene": "A child on a swing being pushed by a friend"
@@ -1077,7 +1077,7 @@
           "id": "playing_016",
           "text": {
             "en": "Let's go down the slide.",
-            "de": "Lass uns die Rutsche runterrutschen.",
+            "de": "Lass uns rutschen!",
             "tr": "Hadi kaydıraktan kayalım."
           },
           "scene": "A child sliding down a playground slide"
@@ -1122,7 +1122,7 @@
           "id": "playing_021",
           "text": {
             "en": "Tag, you're it!",
-            "de": "Fang mich, du bist dran!",
+            "de": "Du bist der Fänger!",
             "tr": "Ebe sensin!"
           },
           "scene": "A child tagging another while running in a game of tag"
@@ -1311,7 +1311,7 @@
           "id": "playing_042",
           "text": {
             "en": "Stop here.",
-            "de": "Halt hier an.",
+            "de": "Bleib stehen!",
             "tr": "Burada dur."
           },
           "scene": "A child stopping with a hand raised"
@@ -1519,7 +1519,7 @@
           "id": "feelings_body_014",
           "text": {
             "en": "It's okay.",
-            "de": "Es ist okay.",
+            "de": "Alles gut!",
             "tr": "Sorun değil."
           },
           "scene": "A child gently reassuring another with a calm smile"

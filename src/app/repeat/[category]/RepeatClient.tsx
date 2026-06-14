@@ -12,6 +12,18 @@ import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
 import { playTarget, playTargetThenNative } from "@/lib/audio";
 
+// Keep speaking sessions short for young children.
+const SESSION_SIZE = 8;
+
+function sample<T>(arr: T[], n: number): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.slice(0, n);
+}
+
 /**
  * Speaking round: each phrase auto-plays in German ("the phrase listened"), the
  * child says it back into the mic, then hears the German phrase again followed
@@ -26,7 +38,7 @@ export default function RepeatClient() {
 
   const category = getCategory(categoryId);
   const phrases = useMemo(
-    () => getPhrasesByCategory(categoryId, source),
+    () => sample(getPhrasesByCategory(categoryId, source), SESSION_SIZE),
     [categoryId, source]
   );
 

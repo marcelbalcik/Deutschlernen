@@ -18,6 +18,9 @@ type Round = {
   options: PhraseItem[];
 };
 
+// Young children need short sessions, not all 50 phrases at once.
+const SESSION_SIZE = 8;
+
 // Stable shuffle helper.
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -42,22 +45,29 @@ export default function PlayClient() {
 
   const category = getCategory(categoryId);
 
+  const [round, setRound] = useState(0);
+  const [picked, setPicked] = useState<string | null>(null);
+  const [solved, setSolved] = useState<number[]>([]);
+  const [seed, setSeed] = useState(0); // bump to reshuffle a fresh session
+
   const rounds: Round[] = useMemo(() => {
     if (!ready) return [];
     const inCategory = getPhrasesByCategory(categoryId, source);
     const all = getPhrases(source);
-    return shuffle(inCategory).map((target) => {
-      // Two cards: the correct one plus a single distractor.
-      const distractors = shuffle(
-        all.filter((p) => p.id !== target.id)
-      ).slice(0, 1);
-      return { target, options: shuffle([target, ...distractors]) };
+    const session = shuffle(inCategory).slice(0, SESSION_SIZE);
+    return session.map((target) => {
+      // Two cards: the correct one plus ONE distractor from a *different*
+      // category, so the two pictures are clearly distinct (avoids two
+      // near-identical scenes within the same pack).
+      const otherCategory = all.filter((p) => p.category !== target.category);
+      const pool = otherCategory.length
+        ? otherCategory
+        : all.filter((p) => p.id !== target.id);
+      return { target, options: shuffle([target, shuffle(pool)[0]]) };
     });
-  }, [categoryId, source, ready]);
-
-  const [round, setRound] = useState(0);
-  const [picked, setPicked] = useState<string | null>(null);
-  const [solved, setSolved] = useState<number[]>([]);
+    // seed is intentionally a dep so "play again" makes a new random session.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryId, source, ready, seed]);
 
   const current = rounds[round];
 
@@ -106,6 +116,7 @@ export default function PlayClient() {
               setRound(0);
               setSolved([]);
               setPicked(null);
+              setSeed((s) => s + 1); // new random set of phrases
             }}
           >
             🔁 Nochmal spielen

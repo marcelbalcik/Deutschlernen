@@ -43,25 +43,33 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
-  min-height: 56px;
+  margin-bottom: 14px;
+  min-height: 36px;
 }
 
+/* Small, subtle back control — present but not a distraction. */
 .back-btn {
-  font-size: 26px;
-  width: 56px;
-  height: 56px;
+  font-size: 18px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: none;
-  background: var(--card);
-  box-shadow: var(--shadow);
+  background: transparent;
+  color: var(--muted);
+  opacity: 0.6;
   cursor: pointer;
   display: grid;
   place-items: center;
+  padding: 0;
+}
+.back-btn:active {
+  opacity: 1;
 }
 
 .topbar h1 {
-  font-size: 22px;
+  font-size: 18px;
+  color: var(--muted);
+  font-weight: 700;
   margin: 0;
   text-align: center;
   flex: 1;
@@ -149,6 +157,77 @@ body {
 .mode-card .mode-sub {
   font-size: 14px;
   color: #45506b;
+}
+
+/* ----------------------- Card-count picker ------------------------- */
+.count-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 4px 0 18px;
+}
+.count-picker .count-label {
+  font-size: 24px;
+}
+.count-options {
+  display: inline-flex;
+  gap: 8px;
+}
+.count-btn {
+  border: none;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  border-radius: 16px;
+  width: 52px;
+  height: 48px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--muted);
+  cursor: pointer;
+}
+.count-btn.active {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 5px 0 var(--accent-dark);
+}
+
+/* ----------------------- End-of-game actions ----------------------- */
+.end-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 22px;
+}
+.end-btn {
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--card);
+  padding: 24px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.end-btn:active {
+  transform: translateY(3px) scale(0.99);
+}
+.end-btn .end-emoji {
+  font-size: 56px;
+  line-height: 1;
+}
+.end-btn .end-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.end-btn.primary {
+  background: var(--accent);
+}
+.end-btn.primary .end-label {
+  color: white;
 }
 
 .category-grid {
@@ -482,6 +561,22 @@ body {
   flex-direction: column;
   gap: 14px;
   margin-top: 18px;
+}
+
+.skip-link {
+  display: block;
+  margin: 16px auto 0;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  opacity: 0.55;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 14px;
+}
+.skip-link:active {
+  opacity: 1;
 }
 
 .muted-note {

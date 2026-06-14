@@ -169,7 +169,8 @@
             "de": "Danke!",
             "tr": "Teşekkür ederim!"
           },
-          "scene": "A child happily receiving a gift and saying thanks"
+          "scene": "A child happily receiving a gift and saying thanks",
+          "priority": true
         },
         {
           "id": "greetings_018",
@@ -187,7 +188,8 @@
             "de": "Bitte.",
             "tr": "Lütfen."
           },
-          "scene": "A child asking politely with hands together"
+          "scene": "A child asking politely with hands together",
+          "priority": true
         },
         {
           "id": "greetings_020",
@@ -196,7 +198,8 @@
             "de": "Entschuldigung.",
             "tr": "Affedersin."
           },
-          "scene": "A child gently tapping someone's shoulder to get attention"
+          "scene": "A child gently tapping someone's shoulder to get attention",
+          "priority": true
         },
         {
           "id": "greetings_021",
@@ -467,6 +470,28 @@
             "tr": "İyi eğlenceler!"
           },
           "scene": "A child cheering as friends head off to play"
+        },
+        {
+          "id": "greetings_051",
+          "text": {
+            "en": "Can you help me?",
+            "de": "Kannst du mir helfen?",
+            "tr": "Bana yardım eder misin?"
+          },
+          "emoji": "🙋",
+          "priority": true,
+          "scene": "A child raising a hand asking an adult for help"
+        },
+        {
+          "id": "greetings_052",
+          "text": {
+            "en": "I don’t understand.",
+            "de": "Ich verstehe das nicht.",
+            "tr": "Anlamıyorum."
+          },
+          "emoji": "🤔",
+          "priority": true,
+          "scene": "A child with a puzzled, confused face"
         }
       ]
     },
@@ -485,7 +510,8 @@
             "de": "Ich habe Hunger.",
             "tr": "Acıktım."
           },
-          "scene": "A child holding their tummy looking at food"
+          "scene": "A child holding their tummy looking at food",
+          "priority": true
         },
         {
           "id": "eating_002",
@@ -494,7 +520,8 @@
             "de": "Ich habe Durst.",
             "tr": "Susadım."
           },
-          "scene": "A child reaching for a glass of water"
+          "scene": "A child reaching for a glass of water",
+          "priority": true
         },
         {
           "id": "eating_003",
@@ -503,7 +530,8 @@
             "de": "Ich möchte Wasser.",
             "tr": "Su istiyorum."
           },
-          "scene": "A child pointing at a glass of water"
+          "scene": "A child pointing at a glass of water",
+          "priority": true
         },
         {
           "id": "eating_004",
@@ -954,7 +982,8 @@
             "de": "Kann ich auch mitspielen?",
             "tr": "Ben de oynayabilir miyim?"
           },
-          "scene": "A child asking to join a group already playing"
+          "scene": "A child asking to join a group already playing",
+          "priority": true
         },
         {
           "id": "playing_003",
@@ -1233,7 +1262,8 @@
             "de": "Nicht schubsen.",
             "tr": "İtme."
           },
-          "scene": "A child gently telling another not to push"
+          "scene": "A child gently telling another not to push",
+          "priority": true
         },
         {
           "id": "playing_034",
@@ -1423,7 +1453,8 @@
             "de": "Ich bin müde.",
             "tr": "Yorgunum."
           },
-          "scene": "A child yawning and rubbing their eyes"
+          "scene": "A child yawning and rubbing their eyes",
+          "priority": true
         },
         {
           "id": "feelings_body_004",
@@ -1441,7 +1472,8 @@
             "de": "Ich habe Angst.",
             "tr": "Korkuyorum."
           },
-          "scene": "A child hiding behind a blanket looking afraid"
+          "scene": "A child hiding behind a blanket looking afraid",
+          "priority": true
         },
         {
           "id": "feelings_body_006",
@@ -1531,7 +1563,8 @@
             "de": "Mir ist schlecht.",
             "tr": "Kendimi hasta hissediyorum."
           },
-          "scene": "A child lying down with a thermometer looking unwell"
+          "scene": "A child lying down with a thermometer looking unwell",
+          "priority": true
         },
         {
           "id": "feelings_body_016",
@@ -1540,7 +1573,8 @@
             "de": "Mir ist kalt.",
             "tr": "Üşüyorum."
           },
-          "scene": "A child shivering and wrapped in a blanket"
+          "scene": "A child shivering and wrapped in a blanket",
+          "priority": true
         },
         {
           "id": "feelings_body_017",
@@ -1720,7 +1754,8 @@
             "de": "Mein Kopf tut weh.",
             "tr": "Başım ağrıyor."
           },
-          "scene": "A child holding their head with a pained face"
+          "scene": "A child holding their head with a pained face",
+          "priority": true
         },
         {
           "id": "feelings_body_037",
@@ -1729,7 +1764,8 @@
             "de": "Mein Bauch tut weh.",
             "tr": "Karnım ağrıyor."
           },
-          "scene": "A child clutching their tummy and frowning"
+          "scene": "A child clutching their tummy and frowning",
+          "priority": true
         },
         {
           "id": "feelings_body_038",
@@ -1738,7 +1774,8 @@
             "de": "Mein Zahn tut weh.",
             "tr": "Dişim ağrıyor."
           },
-          "scene": "A child holding their cheek with a sore tooth"
+          "scene": "A child holding their cheek with a sore tooth",
+          "priority": true
         },
         {
           "id": "feelings_body_039",
@@ -1847,6 +1884,50 @@
             "tr": "Dizini göster."
           },
           "scene": "A child pointing down at their knee"
+        },
+        {
+          "id": "feelings_body_051",
+          "text": {
+            "en": "I need the toilet.",
+            "de": "Ich muss auf die Toilette.",
+            "tr": "Tuvalete gitmem lazım."
+          },
+          "emoji": "🚽",
+          "priority": true,
+          "scene": "A child raising a hand, needing the toilet urgently"
+        },
+        {
+          "id": "feelings_body_052",
+          "text": {
+            "en": "I need help.",
+            "de": "Ich brauche Hilfe.",
+            "tr": "Yardıma ihtiyacım var."
+          },
+          "emoji": "🆘",
+          "priority": true,
+          "scene": "A child looking for an adult, needing help"
+        },
+        {
+          "id": "feelings_body_053",
+          "text": {
+            "en": "I want to go home.",
+            "de": "Ich möchte nach Hause.",
+            "tr": "Eve gitmek istiyorum."
+          },
+          "emoji": "🏠",
+          "priority": true,
+          "scene": "A child looking longingly toward the door, wanting to go home"
+        },
+        {
+          "id": "feelings_body_054",
+          "text": {
+            "en": "Ouch, that hurts!",
+            "de": "Aua, das tut weh!",
+            "tr": "Ah, canım yandı!"
+          },
+          "emoji": "🤕",
+          "priority": true,
+          "scene": "A child saying ouch after a small bump"
         }
       ]
     }

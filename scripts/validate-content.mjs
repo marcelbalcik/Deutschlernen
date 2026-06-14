@@ -42,8 +42,9 @@ for (const p of pack.packs) {
 
     const img = `${ph.id}.png`;
     if (!rawFiles.has(img)) {
-      console.log(`ERROR ${ph.id} has NO image (${img})`);
-      errors++;
+      // Not fatal: the phrase shows its emoji until art is added.
+      console.log(`WARN ${ph.id} has no image yet (${img}) — using emoji`);
+      warnings++;
     } else {
       usedImages.add(img);
     }

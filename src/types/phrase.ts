@@ -8,7 +8,12 @@
 //                       components consume PhraseItem so they never care which
 //                       parent language is selected.
 
-export type CategoryId = "greetings" | "eating" | "playing" | "feelings_body";
+export type CategoryId =
+  | "survival"
+  | "greetings"
+  | "eating"
+  | "playing"
+  | "feelings_body";
 
 export type SourceLanguage = "en" | "tr";
 
@@ -46,6 +51,8 @@ export type PhraseContent = {
   audioAsset?: string;
   difficulty: 1 | 2 | 3;
   tags: string[];
+  /** Critical Kita "survival" phrase — surfaced first in the Wichtig pack. */
+  priority?: boolean;
 };
 
 /** A phrase resolved for a single source language. Matches the spec's data model. */
@@ -64,6 +71,7 @@ export type PhraseItem = {
   audioAsset?: string;
   difficulty: 1 | 2 | 3;
   tags: string[];
+  priority?: boolean;
 };
 
 export type Category = {

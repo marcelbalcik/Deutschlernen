@@ -41,8 +41,23 @@ if (existsSync(exercisesDir)) {
 
 writeFileSync(outFile, JSON.stringify(manifest, null, 2) + "\n");
 
+// Also record which flat _raw/<id>.png images exist, so the app only points a
+// phrase at an image when the file is actually there (otherwise it shows the
+// emoji fallback — used by newly added phrases that don't have art yet).
+const rawDir = join(root, "public", "exercises", "_raw");
+const rawImages = existsSync(rawDir)
+  ? readdirSync(rawDir)
+      .filter((f) => f.toLowerCase().endsWith(".png"))
+      .map((f) => f.replace(/\.png$/i, ""))
+      .sort()
+  : [];
+writeFileSync(
+  join(root, "src", "data", "rawImages.generated.json"),
+  JSON.stringify(rawImages, null, 0) + "\n"
+);
+
 const ids = Object.keys(manifest);
 console.log(
-  `[scan-assets] ${ids.length} exercise(s) with assets: ` +
-    (ids.length ? ids.join(", ") : "(none yet — using emoji + speech)")
+  `[scan-assets] ${ids.length} per-id asset folder(s); ` +
+    `${rawImages.length} flat _raw image(s).`
 );

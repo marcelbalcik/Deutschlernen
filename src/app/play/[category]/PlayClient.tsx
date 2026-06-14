@@ -9,7 +9,7 @@ import TopBar from "@/components/TopBar";
 import { getPhrases, getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
-import { playPhraseItem, playTargetThenNative } from "@/lib/audio";
+import { playPhraseItem, playTargetThenNative, stopAudio } from "@/lib/audio";
 import { markCorrect } from "@/lib/progress";
 import type { PhraseItem } from "@/types/phrase";
 
@@ -78,6 +78,9 @@ export default function PlayClient() {
       return () => clearTimeout(t);
     }
   }, [current]);
+
+  // Stop any audio when leaving this screen.
+  useEffect(() => stopAudio, []);
 
   if (!category) {
     return (

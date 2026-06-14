@@ -300,7 +300,7 @@ body {
 .choice-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 12px;
   margin-top: 18px;
 }
 .choice-card {
@@ -308,10 +308,12 @@ body {
   background: var(--card);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 20px;
-  font-size: 84px;
+  padding: 10px;
   cursor: pointer;
   transition: transform 0.08s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .choice-card:active {
   transform: scale(0.97);

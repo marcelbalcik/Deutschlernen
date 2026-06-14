@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import TopBar from "@/components/TopBar";
 import AccountSection from "@/components/AccountSection";
-import { CATEGORIES } from "@/data/categories";
+import { CONTENT_PACKS } from "@/data/categories";
 import { getPhrases } from "@/data/phrases";
 import { useSettings } from "@/lib/settings";
 import { playPhraseItem } from "@/lib/audio";
@@ -183,7 +183,7 @@ function ParentDashboard() {
 
       <div className="parent-section">
         <h3>All phrases</h3>
-        {CATEGORIES.map((cat) => (
+        {CONTENT_PACKS.map((cat) => (
           <div key={cat.id} style={{ marginBottom: 12 }}>
             <div style={{ fontWeight: 700, margin: "6px 0" }}>
               {cat.emoji} {cat.title}

@@ -492,6 +492,28 @@
           "emoji": "🤔",
           "priority": true,
           "scene": "A child with a puzzled, confused face"
+        },
+        {
+          "id": "greetings_053",
+          "text": {
+            "en": "I don’t know.",
+            "de": "Ich weiß es nicht.",
+            "tr": "Bilmiyorum."
+          },
+          "emoji": "🤷",
+          "scene": "A child shrugging with both palms up, looking unsure",
+          "priority": true
+        },
+        {
+          "id": "greetings_054",
+          "text": {
+            "en": "Slower, please.",
+            "de": "Langsamer, bitte.",
+            "tr": "Daha yavaş, lütfen."
+          },
+          "emoji": "🐢",
+          "scene": "A child gesturing slow down with a calm, friendly face",
+          "priority": true
         }
       ]
     },
@@ -955,6 +977,28 @@
             "tr": "Yemek için teşekkürler."
           },
           "scene": "A child smiling and thanking a cook after a meal"
+        },
+        {
+          "id": "eating_051",
+          "text": {
+            "en": "I am finished.",
+            "de": "Ich bin fertig.",
+            "tr": "Bitirdim."
+          },
+          "emoji": "✅",
+          "scene": "A child holding up an empty plate, finished eating",
+          "priority": true
+        },
+        {
+          "id": "eating_052",
+          "text": {
+            "en": "I don’t want this.",
+            "de": "Ich möchte das nicht.",
+            "tr": "Bunu istemiyorum."
+          },
+          "emoji": "🙅",
+          "scene": "A child gently turning away from a plate of food, refusing",
+          "priority": true
         }
       ]
     },
@@ -1417,6 +1461,28 @@
             "tr": "Oyuncakları toplama zamanı."
           },
           "scene": "A child putting toys back into a toy box"
+        },
+        {
+          "id": "playing_051",
+          "text": {
+            "en": "Stop it!",
+            "de": "Hör auf!",
+            "tr": "Dur!"
+          },
+          "emoji": "✋",
+          "scene": "A child holding up one hand firmly to say stop",
+          "priority": true
+        },
+        {
+          "id": "playing_052",
+          "text": {
+            "en": "That is mine.",
+            "de": "Das ist meins.",
+            "tr": "Bu benim."
+          },
+          "emoji": "🧸",
+          "scene": "A child hugging a toy close, saying it is theirs",
+          "priority": true
         }
       ]
     },
@@ -1928,6 +1994,50 @@
           "emoji": "🤕",
           "priority": true,
           "scene": "A child saying ouch after a small bump"
+        },
+        {
+          "id": "feelings_body_055",
+          "text": {
+            "en": "I want my mom.",
+            "de": "Ich möchte zu meiner Mama.",
+            "tr": "Annemi istiyorum."
+          },
+          "emoji": "👩",
+          "scene": "A child reaching out with a longing face, missing their mom",
+          "priority": true
+        },
+        {
+          "id": "feelings_body_056",
+          "text": {
+            "en": "Where is the toilet?",
+            "de": "Wo ist die Toilette?",
+            "tr": "Tuvalet nerede?"
+          },
+          "emoji": "🚻",
+          "scene": "A child looking around searchingly for the toilet",
+          "priority": true
+        },
+        {
+          "id": "feelings_body_057",
+          "text": {
+            "en": "I don’t feel well.",
+            "de": "Mir geht es nicht gut.",
+            "tr": "Kendimi iyi hissetmiyorum."
+          },
+          "emoji": "🤒",
+          "scene": "A child with a hand on their forehead, looking unwell",
+          "priority": true
+        },
+        {
+          "id": "feelings_body_058",
+          "text": {
+            "en": "I need a break.",
+            "de": "Ich brauche eine Pause.",
+            "tr": "Mola vermem lazım."
+          },
+          "emoji": "😮‍💨",
+          "scene": "A tired child sitting down to take a little rest",
+          "priority": true
         }
       ]
     }

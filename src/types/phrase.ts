@@ -13,7 +13,8 @@ export type CategoryId =
   | "greetings"
   | "eating"
   | "playing"
-  | "feelings_body";
+  | "feelings_body"
+  | "mixed";
 
 export type SourceLanguage = "en" | "tr";
 
@@ -82,4 +83,7 @@ export type Category = {
   emoji: string;
   /** Theme color for the category tile. */
   color: string;
+  /** Virtual selections (survival, mixed) that aggregate other packs, not a
+   *  real content pack. Excluded from the parent "all phrases" listing. */
+  virtual?: boolean;
 };

@@ -1,0 +1,17 @@
+pack,id,en,de,tr,scene
+greetings,greetings_051,Can you help me?,Kannst du mir helfen?,Bana yardım eder misin?,A child raising a hand asking an adult for help
+greetings,greetings_052,I don’t understand.,Ich verstehe das nicht.,Anlamıyorum.,"A child with a puzzled, confused face"
+greetings,greetings_053,I don’t know.,Ich weiß es nicht.,Bilmiyorum.,"A child shrugging with both palms up, looking unsure"
+greetings,greetings_054,"Slower, please.","Langsamer, bitte.","Daha yavaş, lütfen.","A child gesturing slow down with a calm, friendly face"
+eating,eating_051,I am finished.,Ich bin fertig.,Bitirdim.,"A child holding up an empty plate, finished eating"
+eating,eating_052,I don’t want this.,Ich möchte das nicht.,Bunu istemiyorum.,"A child gently turning away from a plate of food, refusing"
+playing,playing_051,Stop it!,Hör auf!,Dur!,A child holding up one hand firmly to say stop
+playing,playing_052,That is mine.,Das ist meins.,Bu benim.,"A child hugging a toy close, saying it is theirs"
+feelings_body,feelings_body_051,I need the toilet.,Ich muss auf die Toilette.,Tuvalete gitmem lazım.,"A child raising a hand, needing the toilet urgently"
+feelings_body,feelings_body_052,I need help.,Ich brauche Hilfe.,Yardıma ihtiyacım var.,"A child looking for an adult, needing help"
+feelings_body,feelings_body_053,I want to go home.,Ich möchte nach Hause.,Eve gitmek istiyorum.,"A child looking longingly toward the door, wanting to go home"
+feelings_body,feelings_body_054,"Ouch, that hurts!","Aua, das tut weh!","Ah, canım yandı!",A child saying ouch after a small bump
+feelings_body,feelings_body_055,I want my mom.,Ich möchte zu meiner Mama.,Annemi istiyorum.,"A child reaching out with a longing face, missing their mom"
+feelings_body,feelings_body_056,Where is the toilet?,Wo ist die Toilette?,Tuvalet nerede?,A child looking around searchingly for the toilet
+feelings_body,feelings_body_057,I don’t feel well.,Mir geht es nicht gut.,Kendimi iyi hissetmiyorum.,"A child with a hand on their forehead, looking unwell"
+feelings_body,feelings_body_058,I need a break.,Ich brauche eine Pause.,Mola vermem lazım.,A tired child sitting down to take a little rest

@@ -69,6 +69,19 @@ export default function StartPage() {
           <span className="mode-title">Hören &amp; Sprechen</span>
           <span className="mode-sub">Listen &amp; say it</span>
         </button>
+
+        <button
+          className="mode-card"
+          style={{ background: "#A0E7A0" }}
+          onClick={() => router.push("/story")}
+          aria-label="Story mode"
+        >
+          <span className="mode-emoji" aria-hidden>
+            📖
+          </span>
+          <span className="mode-title">Geschichten</span>
+          <span className="mode-sub">Story time</span>
+        </button>
       </div>
 
       <button

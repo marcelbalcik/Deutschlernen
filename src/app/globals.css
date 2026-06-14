@@ -563,6 +563,20 @@ body {
   margin-top: 18px;
 }
 
+/* ----------------------------- Story ------------------------------- */
+.story-text {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  margin: 8px 6px 0;
+  color: var(--ink);
+}
+.story-next {
+  width: 100%;
+  margin-top: 18px;
+}
+
 .skip-link {
   display: block;
   margin: 16px auto 0;

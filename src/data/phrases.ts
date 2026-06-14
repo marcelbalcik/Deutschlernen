@@ -86,7 +86,8 @@ export function getPhrasesByCategory(
   source: SourceLanguage
 ): PhraseItem[] {
   const all = getPhrases(source);
-  // "survival" is virtual: the priority phrases from across all packs.
+  // Virtual categories aggregate across packs.
+  if (category === "mixed") return all;
   if (category === "survival") return all.filter((p) => p.priority);
   return all.filter((p) => p.category === category);
 }

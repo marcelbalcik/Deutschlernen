@@ -13,6 +13,23 @@ import type { SpeechBackend } from "@/lib/speech";
 const SOURCE_KEY = "kita_source_lang_v1";
 const SHOW_TEXT_KEY = "kita_show_text_v1";
 const SPEECH_BACKEND_KEY = "kita_speech_backend_v1";
+const CARD_COUNT_KEY = "kita_card_count_v1";
+
+export const CARD_COUNT_OPTIONS = [5, 10, 20, 50] as const;
+export type CardCount = (typeof CARD_COUNT_OPTIONS)[number];
+
+export function getCardCount(): CardCount {
+  if (typeof window === "undefined") return 10;
+  const n = Number(window.localStorage.getItem(CARD_COUNT_KEY));
+  return (CARD_COUNT_OPTIONS as readonly number[]).includes(n)
+    ? (n as CardCount)
+    : 10;
+}
+
+export function setCardCount(count: CardCount): void {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(CARD_COUNT_KEY, String(count));
+}
 
 export function getSourceLanguage(): SourceLanguage {
   if (typeof window === "undefined") return "en";
@@ -57,12 +74,14 @@ export function useSettings() {
   const [source, setSource] = useState<SourceLanguage>("en");
   const [showText, setShowTextState] = useState(true);
   const [speechBackend, setBackendState] = useState<SpeechBackend>("web");
+  const [cardCount, setCardCountState] = useState<CardCount>(10);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     setSource(getSourceLanguage());
     setShowTextState(getShowText());
     setBackendState(getSpeechBackend());
+    setCardCountState(getCardCount());
     setReady(true);
   }, []);
 
@@ -71,6 +90,7 @@ export function useSettings() {
     source,
     showText,
     speechBackend,
+    cardCount,
     updateSource(lang: SourceLanguage) {
       setSourceLanguage(lang);
       setSource(lang);
@@ -82,6 +102,10 @@ export function useSettings() {
     updateSpeechBackend(backend: SpeechBackend) {
       setSpeechBackend(backend);
       setBackendState(backend);
+    },
+    updateCardCount(count: CardCount) {
+      setCardCount(count);
+      setCardCountState(count);
     },
   };
 }

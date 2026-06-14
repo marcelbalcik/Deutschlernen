@@ -18,9 +18,6 @@ type Round = {
   options: PhraseItem[];
 };
 
-// Young children need short sessions, not all 50 phrases at once.
-const SESSION_SIZE = 8;
-
 // Stable shuffle helper.
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -41,7 +38,7 @@ export default function PlayClient() {
   const params = useParams();
   const router = useRouter();
   const categoryId = String(params.category);
-  const { ready, source } = useSettings();
+  const { ready, source, cardCount } = useSettings();
 
   const category = getCategory(categoryId);
 
@@ -54,7 +51,7 @@ export default function PlayClient() {
     if (!ready) return [];
     const inCategory = getPhrasesByCategory(categoryId, source);
     const all = getPhrases(source);
-    const session = shuffle(inCategory).slice(0, SESSION_SIZE);
+    const session = shuffle(inCategory).slice(0, cardCount);
     return session.map((target) => {
       // Two cards: the correct one plus ONE distractor from a *different*
       // category, so the two pictures are clearly distinct (avoids two
@@ -67,7 +64,7 @@ export default function PlayClient() {
     });
     // seed is intentionally a dep so "play again" makes a new random session.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId, source, ready, seed]);
+  }, [categoryId, source, ready, seed, cardCount]);
 
   const current = rounds[round];
 
@@ -106,15 +103,10 @@ export default function PlayClient() {
           </span>
           <p className="phrase-de">Super gemacht!</p>
         </div>
-        <div className="mode-buttons">
+        <div className="end-actions">
           <button
-            className="link-btn"
-            onClick={() => router.push(`/repeat/${categoryId}`)}
-          >
-            🎤 Sprich nach
-          </button>
-          <button
-            className="link-btn"
+            className="end-btn primary"
+            aria-label="Play again"
             onClick={() => {
               setRound(0);
               setSolved([]);
@@ -122,10 +114,20 @@ export default function PlayClient() {
               setSeed((s) => s + 1); // new random set of phrases
             }}
           >
-            🔁 Nochmal spielen
+            <span className="end-emoji" aria-hidden>
+              🔁
+            </span>
+            <span className="end-label">Nochmal</span>
           </button>
-          <button className="link-btn" onClick={() => router.push("/")}>
-            🏠 Startseite
+          <button
+            className="end-btn"
+            aria-label="Home"
+            onClick={() => router.push("/")}
+          >
+            <span className="end-emoji" aria-hidden>
+              🏠
+            </span>
+            <span className="end-label">Start</span>
           </button>
         </div>
       </>

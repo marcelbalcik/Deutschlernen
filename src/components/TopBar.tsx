@@ -21,7 +21,7 @@ export default function TopBar({ title, backHref }: Props) {
       </button>
       <h1>{title}</h1>
       {/* Spacer to keep the title centered. */}
-      <span style={{ width: 56 }} />
+      <span style={{ width: 34 }} />
     </div>
   );
 }

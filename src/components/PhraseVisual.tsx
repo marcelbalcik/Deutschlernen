@@ -23,7 +23,11 @@ export default function PhraseVisual({ phrase, size = 140 }: Props) {
 
   if (!src || failedSrc === src) {
     return (
-      <span className="visual" style={{ fontSize: size }} aria-hidden>
+      <span
+        className="visual"
+        style={{ fontSize: Math.min(size, 120), lineHeight: 1 }}
+        aria-hidden
+      >
         {phrase.emoji}
       </span>
     );
@@ -31,12 +35,18 @@ export default function PhraseVisual({ phrase, size = 140 }: Props) {
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
+    // Fills the card width (big on phones) up to `size` on larger screens.
     <img
       src={src}
       alt=""
-      width={size}
-      height={size}
-      style={{ objectFit: "contain" }}
+      style={{
+        width: "100%",
+        height: "auto",
+        maxWidth: size,
+        objectFit: "contain",
+        display: "block",
+        margin: "0 auto",
+      }}
       onError={() => setFailedSrc(src)}
     />
   );

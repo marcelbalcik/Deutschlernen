@@ -20,7 +20,7 @@ export default function ChoiceCard({ phrase, state, onPick }: Props) {
 
   return (
     <button className={cls} onClick={onPick} aria-label={phrase.phraseSource}>
-      <PhraseVisual phrase={phrase} size={84} />
+      <PhraseVisual phrase={phrase} size={220} />
     </button>
   );
 }

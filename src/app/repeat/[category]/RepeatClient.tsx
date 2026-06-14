@@ -10,7 +10,7 @@ import PhraseVisual from "@/components/PhraseVisual";
 import { getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
-import { playTarget, playTargetThenNative } from "@/lib/audio";
+import { playTarget, playTargetThenNative, stopAudio } from "@/lib/audio";
 
 // Keep speaking sessions short for young children.
 const SESSION_SIZE = 8;
@@ -55,6 +55,9 @@ export default function RepeatClient() {
     }
   }, [phrase]);
 
+  // Stop any audio when leaving this screen.
+  useEffect(() => stopAudio, []);
+
   if (!category || phrases.length === 0) {
     return (
       <>
@@ -73,7 +76,7 @@ export default function RepeatClient() {
       <ProgressDots total={phrases.length} current={index} done={done} />
 
       <div className="flashcard" style={{ cursor: "default" }}>
-        <PhraseVisual phrase={phrase} size={130} />
+        <PhraseVisual phrase={phrase} size={300} />
         {showText && <p className="phrase-de">{phrase.phraseTarget}</p>}
         <AudioButton phrase={phrase} label="Hör zu" />
         <RepeatButton

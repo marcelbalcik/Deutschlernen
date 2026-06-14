@@ -66,17 +66,13 @@ export function scoreAttempt(
   const targetWords = tokens(target);
   const heardWords = tokens(transcript);
 
-  // Nothing transcribed.
+  // Nothing intelligible was said (silence, background noise, a stray sound).
+  // This must NOT pass — ask the child to try again.
   if (heardWords.length === 0) {
-    // If we at least detected a sound, treat it as a real attempt and nudge
-    // up to "close" in high-forgiveness mode — never leave a child empty-handed.
-    if (opts.heardSomething && forgiveness === "high") {
-      return { outcome: "close", similarity: 0, coverage: 0 };
-    }
     return { outcome: "again", similarity: 0, coverage: 0 };
   }
 
-  // Word coverage: each target word counts as "matched" if any heard word is
+  // Word coverage: a target word counts as "matched" if any heard word is
   // similar enough (handles word order and partial phrases).
   let hits = 0;
   for (const tw of targetWords) {
@@ -88,22 +84,18 @@ export function scoreAttempt(
   // Whole-string similarity (catches close-but-mis-segmented attempts).
   const similarity = ratio(normalize(target), normalize(transcript));
 
-  // Thresholds — deliberately low. "high" forgiveness lowers them further.
-  const greatCov = forgiveness === "high" ? 0.5 : 0.6;
-  const greatSim = forgiveness === "high" ? 0.55 : 0.7;
-  const closeCov = forgiveness === "high" ? 0.01 : 0.34; // any word matched
-  const closeSim = forgiveness === "high" ? 0.3 : 0.45;
+  const high = forgiveness === "high";
+  const greatCov = high ? 0.5 : 0.6;
+  const greatSim = high ? 0.6 : 0.7;
+  const closeSim = high ? 0.4 : 0.5;
 
   if (coverage >= greatCov || similarity >= greatSim) {
     return { outcome: "great", similarity, coverage };
   }
-  if (coverage >= closeCov || similarity >= closeSim) {
+  // "close" requires a real partial match — at least one matched word, or a
+  // meaningful overall similarity. Random words / noise fall through to "again".
+  if (hits >= 1 || similarity >= closeSim) {
     return { outcome: "close", similarity, coverage };
   }
-  // They spoke real words but nothing matched — still an attempt: encourage.
-  return {
-    outcome: forgiveness === "high" ? "close" : "again",
-    similarity,
-    coverage,
-  };
+  return { outcome: "again", similarity, coverage };
 }

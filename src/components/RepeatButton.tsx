@@ -14,12 +14,15 @@ import {
   startRecording,
   type SimpleRecorder,
 } from "@/lib/speech/recorder";
-import { playPhraseItem } from "@/lib/audio";
+import { playPhraseItem, stopAudio } from "@/lib/audio";
 import { markSpoken } from "@/lib/progress";
 import { useSettings } from "@/lib/settings";
 
 type Mode = "recognize" | "record" | "none";
 type State = "idle" | "preparing" | "listening" | "feedback";
+
+// Ignore recordings shorter than this — a quick blip is noise, not an attempt.
+const MIN_RECORD_MS = 700;
 
 type Props = {
   phrase: PhraseItem;
@@ -48,8 +51,21 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
   const [state, setState] = useState<State>("idle");
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const recorderRef = useRef<SimpleRecorder | null>(null);
+  const recordStartRef = useRef<number>(0);
   // Effective backend can downgrade vosk→web at runtime if the model is missing.
   const backendRef = useRef<SpeechBackend>("web");
+
+  // Stop audio and abort any listening when leaving this phrase / unmounting.
+  useEffect(() => {
+    return () => {
+      stopAudio();
+      try {
+        getRecognizer(backendRef.current).abort();
+      } catch {
+        /* ignore */
+      }
+    };
+  }, []);
 
   // Decide the backend on the client once settings are loaded.
   useEffect(() => {
@@ -111,23 +127,30 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
   async function handleRecordStart() {
     try {
       recorderRef.current = await startRecording();
+      recordStartRef.current = Date.now();
       setState("listening");
       setOutcome(null);
     } catch {
-      celebrate("close");
+      celebrate("again");
     }
   }
 
   async function handleRecordStop() {
     const rec = recorderRef.current;
     recorderRef.current = null;
+    const elapsed = Date.now() - recordStartRef.current;
     const url = rec ? await rec.stop() : null;
-    if (url) {
-      const audio = new Audio(url);
-      audio.onended = () => URL.revokeObjectURL(url);
-      audio.play().catch(() => URL.revokeObjectURL(url));
+
+    // Too short to be a real attempt → gentle retry, no star.
+    if (!url || elapsed < MIN_RECORD_MS) {
+      celebrate("again");
+      return;
     }
-    celebrate("great"); // hearing yourself back always earns a star
+
+    const audio = new Audio(url);
+    audio.onended = () => URL.revokeObjectURL(url);
+    audio.play().catch(() => URL.revokeObjectURL(url));
+    celebrate("great"); // hearing yourself back earns a star
   }
 
   if (mode === "none") return null;

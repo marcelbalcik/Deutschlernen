@@ -57,7 +57,22 @@ writeFileSync(
 );
 
 const ids = Object.keys(manifest);
+
+// Story narration images live in public/stories/_raw/<storyId>_n<k>.png.
+const storyDir = join(root, "public", "stories", "_raw");
+const storyImages = existsSync(storyDir)
+  ? readdirSync(storyDir)
+      .filter((f) => f.toLowerCase().endsWith(".png"))
+      .map((f) => f.replace(/\.png$/i, ""))
+      .sort()
+  : [];
+writeFileSync(
+  join(root, "src", "data", "storyImages.generated.json"),
+  JSON.stringify(storyImages, null, 0) + "\n"
+);
+
 console.log(
   `[scan-assets] ${ids.length} per-id asset folder(s); ` +
-    `${rawImages.length} flat _raw image(s).`
+    `${rawImages.length} flat _raw image(s); ` +
+    `${storyImages.length} story image(s).`
 );

@@ -7,6 +7,7 @@ import ProgressDots from "@/components/ProgressDots";
 import AudioButton from "@/components/AudioButton";
 import RepeatButton from "@/components/RepeatButton";
 import PhraseVisual from "@/components/PhraseVisual";
+import StoryVisual from "@/components/StoryVisual";
 import StoryPick from "@/components/StoryPick";
 import { getStory } from "@/data/stories";
 import { getPhraseById } from "@/data/phrases";
@@ -118,9 +119,15 @@ export default function StoryClient() {
       {step!.type === "narration" ? (
         <>
           <div className="flashcard" style={{ cursor: "default" }}>
-            <span className="visual" style={{ fontSize: 130 }} aria-hidden>
-              {step!.emoji}
-            </span>
+            <StoryVisual
+              imageId={`${story.id}_n${
+                story.steps
+                  .slice(0, index + 1)
+                  .filter((s) => s.type === "narration").length
+              }`}
+              emoji={step!.emoji}
+              size={260}
+            />
             <p className="story-text">{step!.text[source]}</p>
           </div>
           <div style={{ display: "flex", justifyContent: "center", marginTop: 14 }}>

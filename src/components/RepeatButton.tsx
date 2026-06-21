@@ -15,8 +15,10 @@ import {
   type SimpleRecorder,
 } from "@/lib/speech/recorder";
 import { playPhraseItem, playTarget, stopAudio } from "@/lib/audio";
+import { sfxCorrect, sfxWrong } from "@/lib/sfx";
 import { markSpoken } from "@/lib/progress";
 import { useSettings } from "@/lib/settings";
+import Celebrate from "./Celebrate";
 
 type Mode = "recognize" | "record" | "none";
 type Phase = "idle" | "prep" | "playing" | "listening" | "done";
@@ -46,6 +48,7 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
   const [mode, setMode] = useState<Mode>("none");
   const [phase, setPhase] = useState<Phase>("idle");
   const [outcome, setOutcome] = useState<Outcome | null>(null);
+  const [fire, setFire] = useState(0);
 
   const recorderRef = useRef<SimpleRecorder | null>(null);
   const recordStartRef = useRef<number>(0);
@@ -95,8 +98,12 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
     setOutcome(score.outcome);
     setPhase("done");
     if (score.outcome !== "again") {
+      sfxCorrect();
+      setFire((f) => f + 1);
       markSpoken(phrase.id);
       onSuccess?.();
+    } else {
+      sfxWrong();
     }
   }
 
@@ -147,6 +154,7 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
               : "Sprich nach";
     return (
       <div className="repeat">
+        <Celebrate fire={fire} />
         <button
           className={`mic-btn ${phase === "listening" ? "live" : ""}`}
           onClick={busy ? undefined : manualRetry}
@@ -164,6 +172,7 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
   // Record-and-playback mode (tap-based iOS fallback).
   return (
     <div className="repeat">
+      <Celebrate fire={fire} />
       <button
         className={`mic-btn ${phase === "listening" ? "live" : ""}`}
         onClick={phase === "listening" ? handleRecordStop : handleRecordStart}
@@ -182,8 +191,12 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
     setOutcome(o);
     setPhase("done");
     if (o !== "again") {
+      sfxCorrect();
+      setFire((f) => f + 1);
       markSpoken(phrase.id);
       onSuccess?.();
+    } else {
+      sfxWrong();
     }
   }
 

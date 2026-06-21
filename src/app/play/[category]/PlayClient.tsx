@@ -6,10 +6,12 @@ import ChoiceCard from "@/components/ChoiceCard";
 import ProgressDots from "@/components/ProgressDots";
 import AudioButton from "@/components/AudioButton";
 import TopBar from "@/components/TopBar";
+import Celebrate from "@/components/Celebrate";
 import { getPhrases, getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
 import { playPhraseItem, playTargetThenNative, stopAudio } from "@/lib/audio";
+import { sfxCorrect, sfxWin, sfxWrong } from "@/lib/sfx";
 import { markCorrect } from "@/lib/progress";
 import type { PhraseItem } from "@/types/phrase";
 
@@ -46,6 +48,8 @@ export default function PlayClient() {
   const [picked, setPicked] = useState<string | null>(null);
   const [solved, setSolved] = useState<number[]>([]);
   const [seed, setSeed] = useState(0); // bump to reshuffle a fresh session
+  const [stars, setStars] = useState(0);
+  const [fire, setFire] = useState(0); // confetti trigger
 
   const rounds: Round[] = useMemo(() => {
     if (!ready) return [];
@@ -79,6 +83,12 @@ export default function PlayClient() {
   // Stop any audio when leaving this screen.
   useEffect(() => stopAudio, []);
 
+  // Fanfare when the session is finished.
+  const finished = ready && rounds.length > 0 && round >= rounds.length;
+  useEffect(() => {
+    if (finished) sfxWin();
+  }, [finished]);
+
   if (!category) {
     return (
       <>
@@ -96,12 +106,16 @@ export default function PlayClient() {
   if (round >= rounds.length) {
     return (
       <>
+        <Celebrate fire={fire + 1000} big />
         <TopBar title={category.title} backHref="/play" />
         <div className="flashcard" style={{ cursor: "default" }}>
-          <span className="visual" style={{ fontSize: 120 }} aria-hidden>
-            🎉
+          <span className="visual" style={{ fontSize: 110 }} aria-hidden>
+            🦊
           </span>
           <p className="phrase-de">Super gemacht!</p>
+          <p className="win-stars" aria-label={`${stars} stars`}>
+            {"⭐".repeat(Math.min(stars, 12))}
+          </p>
         </div>
         <div className="end-actions">
           <button
@@ -111,6 +125,7 @@ export default function PlayClient() {
               setRound(0);
               setSolved([]);
               setPicked(null);
+              setStars(0);
               setSeed((s) => s + 1); // new random set of phrases
             }}
           >
@@ -142,6 +157,9 @@ export default function PlayClient() {
       const target = current.target;
       markCorrect(target.id);
       setSolved((s) => [...s, round]);
+      setStars((s) => s + 1);
+      setFire((f) => f + 1);
+      sfxCorrect();
       // Reinforcement: hear the German phrase again, then the translation, then
       // move on. Kicked off inside the tap so mobile audio is allowed to play.
       void playTargetThenNative(target).finally(() => {
@@ -149,15 +167,23 @@ export default function PlayClient() {
         setRound((r) => r + 1);
       });
     } else {
-      // Gentle: clear the wrong state and let them try again.
+      // Gentle: soft sound, clear the wrong state, let them try again.
+      sfxWrong();
       setTimeout(() => setPicked(null), 700);
     }
   }
 
   return (
     <>
+      <Celebrate fire={fire} />
       <TopBar title={category.title} backHref="/play" />
       <ProgressDots total={rounds.length} current={round} done={solved} />
+      <div className="star-bar" aria-label={`${stars} stars`}>
+        <span>⭐</span>
+        <span key={stars} className={stars > 0 ? "star-pop" : ""}>
+          {stars}
+        </span>
+      </div>
 
       <div className="play-prompt">
         <p>Was hörst du? Tippe das richtige Bild.</p>

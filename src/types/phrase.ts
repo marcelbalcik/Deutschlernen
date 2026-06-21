@@ -77,12 +77,14 @@ export type PhraseItem = {
 
 export type Category = {
   id: CategoryId;
-  /** Title shown in parent mode (German). */
+  /** Title shown on the tile and in parent mode (German). */
   title: string;
   /** Big friendly emoji used on the child-facing category tile. */
   emoji: string;
-  /** Theme color for the category tile. */
-  color: string;
+  /** Tile background color. */
+  tile: string;
+  /** Icon-chip color behind the emoji. */
+  chip: string;
   /** Virtual selections (survival, mixed) that aggregate other packs, not a
    *  real content pack. Excluded from the parent "all phrases" listing. */
   virtual?: boolean;

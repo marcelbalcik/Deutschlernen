@@ -17,14 +17,14 @@ export default function CategoryGrid({ hrefBase }: Props) {
         <button
           key={c.id}
           className="category-tile"
-          style={{ background: c.color }}
+          style={{ background: c.tile }}
           onClick={() => router.push(`${hrefBase}/${c.id}`)}
           aria-label={c.title}
         >
-          <span className="emoji" aria-hidden>
+          <span className="cat-chip" style={{ background: c.chip }} aria-hidden>
             {c.emoji}
           </span>
-          <span className="label">{c.title}</span>
+          <span className="cat-name">{c.title}</span>
         </button>
       ))}
     </div>

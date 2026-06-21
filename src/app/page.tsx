@@ -20,13 +20,14 @@ export default function StartPage() {
     <>
       <div className="home-hero">
         <div className="logo" aria-hidden>
-          🐻
+          🦊
         </div>
         <h1>Kita-Sprache</h1>
-        <p>Deutsch lernen mit Spaß</p>
+        <p>Hören · Tippen · Sprechen</p>
       </div>
 
       {/* Step 1: family language */}
+      <p className="section-label">Sprache zu Hause</p>
       <div className="lang-row" role="group" aria-label="Choose language">
         {LANGS.map((l) => (
           <button
@@ -45,42 +46,45 @@ export default function StartPage() {
       {/* Step 2: game mode */}
       <div className="mode-grid">
         <button
-          className="mode-card"
-          style={{ background: "#9AD0FF" }}
+          className="mode-card m-accent"
           onClick={() => router.push("/play")}
           aria-label="Listen and pick the picture"
         >
-          <span className="mode-emoji" aria-hidden>
-            👂🖼️
+          <span className="mode-chip" aria-hidden>
+            👂
           </span>
-          <span className="mode-title">Hören &amp; Tippen</span>
-          <span className="mode-sub">Listen &amp; pick the picture</span>
+          <span className="mode-text">
+            <span className="mode-title">Hören &amp; Tippen</span>
+            <span className="mode-sub">Hör zu, tippe das Bild</span>
+          </span>
         </button>
 
         <button
-          className="mode-card"
-          style={{ background: "#C9B6FF" }}
+          className="mode-card m-grape"
           onClick={() => router.push("/repeat")}
           aria-label="Listen and say it"
         >
-          <span className="mode-emoji" aria-hidden>
-            👂🎤
+          <span className="mode-chip" aria-hidden>
+            🗣️
           </span>
-          <span className="mode-title">Hören &amp; Sprechen</span>
-          <span className="mode-sub">Listen &amp; say it</span>
+          <span className="mode-text">
+            <span className="mode-title">Hören &amp; Sprechen</span>
+            <span className="mode-sub">Hör zu, sprich nach</span>
+          </span>
         </button>
 
         <button
-          className="mode-card"
-          style={{ background: "#A0E7A0" }}
+          className="mode-card m-sky"
           onClick={() => router.push("/story")}
           aria-label="Story mode"
         >
-          <span className="mode-emoji" aria-hidden>
+          <span className="mode-chip" aria-hidden>
             📖
           </span>
-          <span className="mode-title">Geschichten</span>
-          <span className="mode-sub">Story time</span>
+          <span className="mode-text">
+            <span className="mode-title">Geschichten</span>
+            <span className="mode-sub">Kleine Geschichten</span>
+          </span>
         </button>
       </div>
 

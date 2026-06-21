@@ -2,6 +2,7 @@
 
 import type { PhraseItem } from "@/types/phrase";
 import PhraseVisual from "./PhraseVisual";
+import { sfxTap } from "@/lib/sfx";
 
 type Props = {
   phrase: PhraseItem;
@@ -19,7 +20,14 @@ export default function ChoiceCard({ phrase, state, onPick }: Props) {
         : "choice-card";
 
   return (
-    <button className={cls} onClick={onPick} aria-label={phrase.phraseSource}>
+    <button
+      className={cls}
+      onClick={() => {
+        sfxTap();
+        onPick();
+      }}
+      aria-label={phrase.phraseSource}
+    >
       <PhraseVisual phrase={phrase} size={220} />
     </button>
   );

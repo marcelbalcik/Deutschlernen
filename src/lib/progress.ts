@@ -6,6 +6,25 @@ const SEEN_KEY = "kita_seen_phrases_v1";
 const CORRECT_KEY = "kita_correct_phrases_v1";
 const SPOKEN_KEY = "kita_spoken_phrases_v1";
 const FAVORITES_KEY = "kita_favorite_phrases_v1";
+const STAR_TOTAL_KEY = "kita_star_total_v1";
+
+/** Running total of stars the child has caught/collected. */
+export function getStarTotal(): number {
+  if (typeof window === "undefined") return 0;
+  return Number(window.localStorage.getItem(STAR_TOTAL_KEY)) || 0;
+}
+
+/** Add to the collected-star total; returns the new total. */
+export function addStars(n: number): number {
+  const total = getStarTotal() + n;
+  try {
+    window.localStorage.setItem(STAR_TOTAL_KEY, String(total));
+  } catch {
+    /* ignore */
+  }
+  notify();
+  return total;
+}
 
 function readSet(key: string): Set<string> {
   if (typeof window === "undefined") return new Set();
@@ -151,5 +170,6 @@ export function resetProgress(): void {
   window.localStorage.removeItem(CORRECT_KEY);
   window.localStorage.removeItem(SPOKEN_KEY);
   window.localStorage.removeItem(FAVORITES_KEY);
+  window.localStorage.removeItem(STAR_TOTAL_KEY);
   notify();
 }

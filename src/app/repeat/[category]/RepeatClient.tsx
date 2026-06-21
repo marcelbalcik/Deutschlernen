@@ -7,6 +7,7 @@ import ProgressDots from "@/components/ProgressDots";
 import AudioButton from "@/components/AudioButton";
 import RepeatButton from "@/components/RepeatButton";
 import PhraseVisual from "@/components/PhraseVisual";
+import LevelComplete from "@/components/LevelComplete";
 import { getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
@@ -66,38 +67,14 @@ export default function RepeatClient() {
     return (
       <>
         <TopBar title={category.title} backHref="/repeat" />
-        <div className="flashcard" style={{ cursor: "default" }}>
-          <span className="finish-mascot" aria-hidden>
-            🦊
-          </span>
-          <p className="phrase-de">Geschafft!</p>
-        </div>
-        <div className="end-actions">
-          <button
-            className="end-btn primary"
-            aria-label="Again"
-            onClick={() => {
-              setIndex(0);
-              setDone([]);
-              setSeed((s) => s + 1);
-            }}
-          >
-            <span className="end-emoji" aria-hidden>
-              🔁
-            </span>
-            <span className="end-label">Nochmal</span>
-          </button>
-          <button
-            className="end-btn"
-            aria-label="Home"
-            onClick={() => router.push("/")}
-          >
-            <span className="end-emoji" aria-hidden>
-              🏠
-            </span>
-            <span className="end-label">Start</span>
-          </button>
-        </div>
+        <LevelComplete
+          onAgain={() => {
+            setIndex(0);
+            setDone([]);
+            setSeed((s) => s + 1);
+          }}
+          onHome={() => router.push("/")}
+        />
       </>
     );
   }

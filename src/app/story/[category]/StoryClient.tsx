@@ -6,6 +6,7 @@ import TopBar from "@/components/TopBar";
 import ProgressDots from "@/components/ProgressDots";
 import StoryVisual from "@/components/StoryVisual";
 import StoryPick from "@/components/StoryPick";
+import LevelComplete from "@/components/LevelComplete";
 import { getStory } from "@/data/stories";
 import { getPhraseById } from "@/data/phrases";
 import { useSettings } from "@/lib/settings";
@@ -66,34 +67,12 @@ export default function StoryClient() {
     return (
       <>
         <TopBar title={story.title[source]} backHref="/story" />
-        <div className="flashcard" style={{ cursor: "default" }}>
-          <span className="finish-mascot" aria-hidden>
-            🦊
-          </span>
-          <p className="phrase-de">Geschafft!</p>
-        </div>
-        <div className="end-actions">
-          <button
-            className="end-btn primary"
-            aria-label="Again"
-            onClick={() => setIndex(0)}
-          >
-            <span className="end-emoji" aria-hidden>
-              🔁
-            </span>
-            <span className="end-label">Nochmal</span>
-          </button>
-          <button
-            className="end-btn"
-            aria-label="More stories"
-            onClick={() => router.push("/story")}
-          >
-            <span className="end-emoji" aria-hidden>
-              📚
-            </span>
-            <span className="end-label">Geschichten</span>
-          </button>
-        </div>
+        <LevelComplete
+          onAgain={() => setIndex(0)}
+          onHome={() => router.push("/story")}
+          homeEmoji="📚"
+          homeLabel="Geschichten"
+        />
       </>
     );
   }

@@ -7,11 +7,12 @@ import ProgressDots from "@/components/ProgressDots";
 import AudioButton from "@/components/AudioButton";
 import TopBar from "@/components/TopBar";
 import Celebrate from "@/components/Celebrate";
+import LevelComplete from "@/components/LevelComplete";
 import { getPhrases, getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
 import { playPhraseItem, playTargetThenNative, stopAudio } from "@/lib/audio";
-import { sfxCorrect, sfxWin, sfxWrong } from "@/lib/sfx";
+import { sfxCorrect, sfxWrong } from "@/lib/sfx";
 import { markCorrect } from "@/lib/progress";
 import type { PhraseItem } from "@/types/phrase";
 
@@ -83,12 +84,6 @@ export default function PlayClient() {
   // Stop any audio when leaving this screen.
   useEffect(() => stopAudio, []);
 
-  // Fanfare when the session is finished.
-  const finished = ready && rounds.length > 0 && round >= rounds.length;
-  useEffect(() => {
-    if (finished) sfxWin();
-  }, [finished]);
-
   if (!category) {
     return (
       <>
@@ -106,45 +101,17 @@ export default function PlayClient() {
   if (round >= rounds.length) {
     return (
       <>
-        <Celebrate fire={fire + 1000} big />
         <TopBar title={category.title} backHref="/play" />
-        <div className="flashcard" style={{ cursor: "default" }}>
-          <span className="finish-mascot" aria-hidden>
-            🦊
-          </span>
-          <p className="phrase-de">Geschafft!</p>
-          <p className="win-stars" aria-label={`${stars} stars`}>
-            {"⭐".repeat(Math.min(stars, 12))}
-          </p>
-        </div>
-        <div className="end-actions">
-          <button
-            className="end-btn primary"
-            aria-label="Play again"
-            onClick={() => {
-              setRound(0);
-              setSolved([]);
-              setPicked(null);
-              setStars(0);
-              setSeed((s) => s + 1); // new random set of phrases
-            }}
-          >
-            <span className="end-emoji" aria-hidden>
-              🔁
-            </span>
-            <span className="end-label">Nochmal</span>
-          </button>
-          <button
-            className="end-btn"
-            aria-label="Home"
-            onClick={() => router.push("/")}
-          >
-            <span className="end-emoji" aria-hidden>
-              🏠
-            </span>
-            <span className="end-label">Start</span>
-          </button>
-        </div>
+        <LevelComplete
+          onAgain={() => {
+            setRound(0);
+            setSolved([]);
+            setPicked(null);
+            setStars(0);
+            setSeed((s) => s + 1); // new random set of phrases
+          }}
+          onHome={() => router.push("/")}
+        />
       </>
     );
   }

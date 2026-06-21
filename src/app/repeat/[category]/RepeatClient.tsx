@@ -67,10 +67,10 @@ export default function RepeatClient() {
       <>
         <TopBar title={category.title} backHref="/repeat" />
         <div className="flashcard" style={{ cursor: "default" }}>
-          <span className="visual" style={{ fontSize: 120 }} aria-hidden>
-            🎉
+          <span className="finish-mascot" aria-hidden>
+            🦊
           </span>
-          <p className="phrase-de">Super gemacht!</p>
+          <p className="phrase-de">Geschafft!</p>
         </div>
         <div className="end-actions">
           <button

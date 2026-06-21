@@ -76,7 +76,24 @@ export default function StoryPick({ phrase, source, onDone }: Props) {
           );
         })}
       </div>
-      <div className="celebrate">{picked === phrase.id ? "🌟 Richtig!" : ""}</div>
+      <div
+        className={`celebrate ${picked && picked !== phrase.id ? "is-wrong" : ""}`}
+      >
+        {picked ? (
+          picked === phrase.id ? (
+            <>
+              <span className="cheer-fox" aria-hidden>
+                🦊
+              </span>{" "}
+              Super! Richtig!
+            </>
+          ) : (
+            "Probier nochmal 💪"
+          )
+        ) : (
+          ""
+        )}
+      </div>
     </>
   );
 }

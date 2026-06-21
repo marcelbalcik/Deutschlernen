@@ -67,10 +67,10 @@ export default function StoryClient() {
       <>
         <TopBar title={story.title[source]} backHref="/story" />
         <div className="flashcard" style={{ cursor: "default" }}>
-          <span className="visual" style={{ fontSize: 120 }} aria-hidden>
-            🎉
+          <span className="finish-mascot" aria-hidden>
+            🦊
           </span>
-          <p className="phrase-de">Geschichte fertig!</p>
+          <p className="phrase-de">Geschafft!</p>
         </div>
         <div className="end-actions">
           <button
@@ -105,7 +105,7 @@ export default function StoryClient() {
 
       {step!.type === "narration" ? (
         <>
-          <div className="flashcard" style={{ cursor: "default" }}>
+          <div className="story-scene">
             <StoryVisual
               imageId={`${story.id}_n${
                 story.steps
@@ -113,28 +113,26 @@ export default function StoryClient() {
                   .filter((s) => s.type === "narration").length
               }`}
               emoji={step!.emoji}
-              size={260}
+              size={200}
             />
-            <p className="story-text">{step!.de}</p>
-            <p className="story-subtitle">{step!.text[source]}</p>
           </div>
-          <div style={{ display: "flex", justifyContent: "center", marginTop: 14 }}>
+          <p className="story-text">{step!.de}</p>
+          <p className="story-subtitle">{step!.text[source]}</p>
+          <div className="story-actions">
             <button
-              className="big-audio-btn"
+              className="ghost-btn"
+              aria-label="Hear again"
               onClick={() => speak(step!.de, "de-DE")}
             >
-              <span className="speaker" aria-hidden>
-                🔊
-              </span>
-              Nochmal
+              🔁
+            </button>
+            <button className="weiter-btn" onClick={next}>
+              Weiter ▶
             </button>
           </div>
-          <button className="link-btn story-next" onClick={next}>
-            Weiter ▶
-          </button>
         </>
       ) : !gamePhrase ? (
-        <button className="link-btn story-next" onClick={next}>
+        <button className="weiter-btn" onClick={next} style={{ marginTop: 18 }}>
           Weiter ▶
         </button>
       ) : (

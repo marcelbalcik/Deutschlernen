@@ -109,10 +109,10 @@ export default function PlayClient() {
         <Celebrate fire={fire + 1000} big />
         <TopBar title={category.title} backHref="/play" />
         <div className="flashcard" style={{ cursor: "default" }}>
-          <span className="visual" style={{ fontSize: 110 }} aria-hidden>
+          <span className="finish-mascot" aria-hidden>
             🦊
           </span>
-          <p className="phrase-de">Super gemacht!</p>
+          <p className="phrase-de">Geschafft!</p>
           <p className="win-stars" aria-label={`${stars} stars`}>
             {"⭐".repeat(Math.min(stars, 12))}
           </p>
@@ -208,8 +208,25 @@ export default function PlayClient() {
         })}
       </div>
 
-      <div className="celebrate">
-        {picked === current.target.id ? "🌟 Richtig!" : ""}
+      <div
+        className={`celebrate ${
+          picked && picked !== current.target.id ? "is-wrong" : ""
+        }`}
+      >
+        {picked ? (
+          picked === current.target.id ? (
+            <>
+              <span className="cheer-fox" aria-hidden>
+                🦊
+              </span>{" "}
+              Super! Richtig!
+            </>
+          ) : (
+            "Probier nochmal 💪"
+          )
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

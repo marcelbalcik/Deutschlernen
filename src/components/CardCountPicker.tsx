@@ -8,9 +8,7 @@ export default function CardCountPicker() {
 
   return (
     <div className="count-picker">
-      <span className="count-label" aria-hidden>
-        🃏
-      </span>
+      <p className="count-label">Wie viele Karten?</p>
       <div className="count-options" role="group" aria-label="How many cards">
         {CARD_COUNT_OPTIONS.map((n) => (
           <button

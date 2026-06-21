@@ -35,10 +35,14 @@ export default function StoryListPage() {
             onClick={() => router.push(`/story/${s.id}`)}
             aria-label={ready ? s.title[source] : s.id}
           >
-            <span className="emoji" aria-hidden>
+            <span
+              className="cat-chip"
+              style={{ background: "rgba(255,255,255,0.55)" }}
+              aria-hidden
+            >
               {s.emoji}
             </span>
-            <span className="label">{ready ? s.title[source] : ""}</span>
+            <span className="cat-name">{ready ? s.title[source] : ""}</span>
           </button>
         ))}
       </div>

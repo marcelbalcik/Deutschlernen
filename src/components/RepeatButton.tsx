@@ -14,12 +14,12 @@ import {
   startRecording,
   type SimpleRecorder,
 } from "@/lib/speech/recorder";
-import { playPhraseItem, stopAudio } from "@/lib/audio";
+import { playPhraseItem, playTarget, stopAudio } from "@/lib/audio";
 import { markSpoken } from "@/lib/progress";
 import { useSettings } from "@/lib/settings";
 
 type Mode = "recognize" | "record" | "none";
-type State = "idle" | "preparing" | "listening" | "feedback";
+type Phase = "idle" | "prep" | "playing" | "listening" | "done";
 
 // Ignore recordings shorter than this — a quick blip is noise, not an attempt.
 const MIN_RECORD_MS = 700;
@@ -29,7 +29,6 @@ type Props = {
   onSuccess?: () => void;
 };
 
-// Child-facing feedback. Never negative — the worst case is a friendly retry.
 const FEEDBACK: Record<Outcome, { emoji: string; text: string }> = {
   great: { emoji: "🌟", text: "Toll!" },
   close: { emoji: "👍", text: "Super gemacht!" },
@@ -37,37 +36,24 @@ const FEEDBACK: Record<Outcome, { emoji: string; text: string }> = {
 };
 
 /**
- * "Sprich nach" (say it back). Tapping the mic lets the child repeat the phrase.
- *
- * - Recognition backend follows the parent setting: Web Speech (fast) or Vosk
- *   (private/on-device). Vosk downloads its model on first use; if it can't be
- *   loaded we fall back to Web Speech automatically.
- * - If no recognition is available at all, we record and play the child back.
- * Either way there is no failure state — every attempt is encouraged.
+ * Say-it-back, hands-free. When the phrase appears it plays the German once and
+ * then AUTOMATICALLY starts listening — the child just speaks, no button to
+ * press. One silent auto-retry; after that the mic is tappable to try again.
+ * (Record-and-playback is the tap-based iOS fallback when recognition is absent.)
  */
 export default function RepeatButton({ phrase, onSuccess }: Props) {
   const { ready, speechBackend } = useSettings();
   const [mode, setMode] = useState<Mode>("none");
-  const [state, setState] = useState<State>("idle");
+  const [phase, setPhase] = useState<Phase>("idle");
   const [outcome, setOutcome] = useState<Outcome | null>(null);
+
   const recorderRef = useRef<SimpleRecorder | null>(null);
   const recordStartRef = useRef<number>(0);
-  // Effective backend can downgrade vosk→web at runtime if the model is missing.
   const backendRef = useRef<SpeechBackend>("web");
+  const activeRef = useRef(true);
+  const autoRetryRef = useRef(0);
 
-  // Stop audio and abort any listening when leaving this phrase / unmounting.
-  useEffect(() => {
-    return () => {
-      stopAudio();
-      try {
-        getRecognizer(backendRef.current).abort();
-      } catch {
-        /* ignore */
-      }
-    };
-  }, []);
-
-  // Decide the backend on the client once settings are loaded.
+  // Decide the backend once settings load.
   useEffect(() => {
     if (!ready) return;
     backendRef.current = speechBackend;
@@ -78,58 +64,135 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
     else setMode("none");
   }, [ready, speechBackend]);
 
-  // Reset feedback when moving to a new phrase.
-  useEffect(() => {
-    setState("idle");
+  async function listenAndScore() {
+    let recognizer = getRecognizer(backendRef.current);
+    if (backendRef.current === "vosk" && recognizer.prepare) {
+      setPhase("prep");
+      const ok = await recognizer.prepare();
+      if (!activeRef.current) return;
+      if (!ok && isWebSpeechSupported()) {
+        backendRef.current = "web";
+        recognizer = getRecognizer("web");
+      }
+    }
+    setPhase("listening");
+    const result = await recognizer.listenOnce({
+      lang: "de-DE",
+      timeoutMs: backendRef.current === "vosk" ? 7000 : 6000,
+    });
+    if (!activeRef.current) return;
+    const score = scoreAttempt(phrase.phraseTarget, result.transcript, {
+      forgiveness: "high",
+    });
+    // One silent auto-retry on a miss before showing "try again".
+    if (score.outcome === "again" && autoRetryRef.current < 1) {
+      autoRetryRef.current += 1;
+      setTimeout(() => {
+        if (activeRef.current) void listenAndScore();
+      }, 700);
+      return;
+    }
+    setOutcome(score.outcome);
+    setPhase("done");
+    if (score.outcome !== "again") {
+      markSpoken(phrase.id);
+      onSuccess?.();
+    }
+  }
+
+  async function playThenListen() {
     setOutcome(null);
-  }, [phrase.id]);
+    setPhase("playing");
+    await playTarget(phrase);
+    if (!activeRef.current) return;
+    await listenAndScore();
+  }
+
+  // Auto-run the play→listen sequence when the phrase appears (recognize mode).
+  useEffect(() => {
+    if (mode !== "recognize") return;
+    activeRef.current = true;
+    autoRetryRef.current = 0;
+    void playThenListen();
+    return () => {
+      activeRef.current = false;
+      stopAudio();
+      try {
+        getRecognizer(backendRef.current).abort();
+      } catch {
+        /* ignore */
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, phrase.id]);
+
+  function manualRetry() {
+    autoRetryRef.current = 0;
+    void playThenListen();
+  }
+
+  if (mode === "none") return null;
+
+  if (mode === "recognize") {
+    const busy = phase === "playing" || phase === "prep" || phase === "listening";
+    const label =
+      phase === "prep"
+        ? "Lädt…"
+        : phase === "playing"
+          ? "Hör zu…"
+          : phase === "listening"
+            ? "Sprich jetzt!"
+            : outcome === "again"
+              ? "Nochmal?"
+              : "Sprich nach";
+    return (
+      <div className="repeat">
+        <button
+          className={`mic-btn ${phase === "listening" ? "live" : ""}`}
+          onClick={busy ? undefined : manualRetry}
+          disabled={busy}
+          aria-label="Speak the phrase"
+        >
+          {phase === "prep" ? "⏳" : phase === "listening" ? "🎙️" : "🎤"}
+          <span className="mic-label">{label}</span>
+        </button>
+        <Feedback outcome={phase === "done" ? outcome : null} phrase={phrase} />
+      </div>
+    );
+  }
+
+  // Record-and-playback mode (tap-based iOS fallback).
+  return (
+    <div className="repeat">
+      <button
+        className={`mic-btn ${phase === "listening" ? "live" : ""}`}
+        onClick={phase === "listening" ? handleRecordStop : handleRecordStart}
+        aria-label="Record yourself saying the phrase"
+      >
+        {phase === "listening" ? "⏹️" : "🎤"}
+        <span className="mic-label">
+          {phase === "listening" ? "Tipp zum Stoppen" : "Sprich nach"}
+        </span>
+      </button>
+      <Feedback outcome={phase === "done" ? outcome : null} phrase={phrase} />
+    </div>
+  );
 
   function celebrate(o: Outcome) {
     setOutcome(o);
-    setState("feedback");
+    setPhase("done");
     if (o !== "again") {
       markSpoken(phrase.id);
       onSuccess?.();
     }
   }
 
-  async function handleRecognize() {
-    setOutcome(null);
-    let recognizer = getRecognizer(backendRef.current);
-
-    // Vosk needs its model; show a loading state and fall back if it fails.
-    if (backendRef.current === "vosk" && recognizer.prepare) {
-      setState("preparing");
-      const ok = await recognizer.prepare();
-      if (!ok) {
-        if (isWebSpeechSupported()) {
-          backendRef.current = "web";
-          recognizer = getRecognizer("web");
-        } else {
-          celebrate("close"); // no recognition available — still encourage
-          return;
-        }
-      }
-    }
-
-    setState("listening");
-    const result = await recognizer.listenOnce({
-      lang: "de-DE",
-      timeoutMs: backendRef.current === "vosk" ? 7000 : 6000,
-    });
-    const score = scoreAttempt(phrase.phraseTarget, result.transcript, {
-      heardSomething: result.heardSomething,
-      forgiveness: "high",
-    });
-    celebrate(score.outcome);
-  }
-
   async function handleRecordStart() {
     try {
       recorderRef.current = await startRecording();
       recordStartRef.current = Date.now();
-      setState("listening");
       setOutcome(null);
+      setPhase("listening");
     } catch {
       celebrate("again");
     }
@@ -140,61 +203,15 @@ export default function RepeatButton({ phrase, onSuccess }: Props) {
     recorderRef.current = null;
     const elapsed = Date.now() - recordStartRef.current;
     const url = rec ? await rec.stop() : null;
-
-    // Too short to be a real attempt → gentle retry, no star.
     if (!url || elapsed < MIN_RECORD_MS) {
       celebrate("again");
       return;
     }
-
     const audio = new Audio(url);
     audio.onended = () => URL.revokeObjectURL(url);
     audio.play().catch(() => URL.revokeObjectURL(url));
-    celebrate("great"); // hearing yourself back earns a star
+    celebrate("great");
   }
-
-  if (mode === "none") return null;
-
-  if (mode === "recognize") {
-    const busy = state === "listening" || state === "preparing";
-    const label =
-      state === "preparing"
-        ? "Lädt…"
-        : state === "listening"
-          ? "Ich höre zu…"
-          : "Sprich nach";
-    return (
-      <div className="repeat">
-        <button
-          className={`mic-btn ${state === "listening" ? "live" : ""}`}
-          onClick={busy ? undefined : handleRecognize}
-          disabled={busy}
-          aria-label="Say the phrase"
-        >
-          {state === "preparing" ? "⏳" : state === "listening" ? "🎙️" : "🎤"}
-          <span className="mic-label">{label}</span>
-        </button>
-        <Feedback outcome={state === "feedback" ? outcome : null} phrase={phrase} />
-      </div>
-    );
-  }
-
-  // Record-and-playback mode.
-  return (
-    <div className="repeat">
-      <button
-        className={`mic-btn ${state === "listening" ? "live" : ""}`}
-        onClick={state === "listening" ? handleRecordStop : handleRecordStart}
-        aria-label="Record yourself saying the phrase"
-      >
-        {state === "listening" ? "⏹️" : "🎤"}
-        <span className="mic-label">
-          {state === "listening" ? "Tipp zum Stoppen" : "Sprich nach"}
-        </span>
-      </button>
-      <Feedback outcome={state === "feedback" ? outcome : null} phrase={phrase} />
-    </div>
-  );
 }
 
 function Feedback({

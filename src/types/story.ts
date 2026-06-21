@@ -6,6 +6,9 @@ import type { SourceLanguage } from "./phrase";
 
 export type StoryNarration = {
   type: "narration";
+  /** German narration, read aloud and shown as the main text. */
+  de: string;
+  /** Family-language subtitle, keyed by source language. */
   text: Record<SourceLanguage, string>;
   emoji: string;
 };

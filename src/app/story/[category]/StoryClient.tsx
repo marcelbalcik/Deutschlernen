@@ -4,30 +4,28 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import TopBar from "@/components/TopBar";
 import ProgressDots from "@/components/ProgressDots";
-import AudioButton from "@/components/AudioButton";
-import RepeatButton from "@/components/RepeatButton";
-import PhraseVisual from "@/components/PhraseVisual";
 import StoryVisual from "@/components/StoryVisual";
 import StoryPick from "@/components/StoryPick";
 import { getStory } from "@/data/stories";
 import { getPhraseById } from "@/data/phrases";
 import { useSettings } from "@/lib/settings";
-import { playTarget, playTargetThenNative, speak, stopAudio } from "@/lib/audio";
+import { speak, stopAudio } from "@/lib/audio";
 
 const NATIVE_LANG: Record<string, string> = { en: "en-US", tr: "tr-TR" };
 
 /**
  * Story player: walks the story beat by beat. Narration is read aloud in the
- * family language; game beats drop into the Pick or Speak mechanic. A correct
- * pick / successful repeat advances; narration advances with a big "weiter".
+ * family language and advances with a big "weiter"; picture-picking beats drop
+ * the child into the Pick mechanic (hear the German phrase, tap the matching
+ * picture), and a correct pick advances. No mic / speaking in story mode.
  */
 export default function StoryClient() {
-  // NOTE: the dynamic segment is named [category] to share generateStaticParams
-  // shape with the other routes; here it is the story id.
+  // The dynamic segment is named [category] to share the static-export param
+  // shape with the other routes; here its value is the story id.
   const params = useParams();
   const router = useRouter();
   const storyId = String(params.category);
-  const { ready, showText, source } = useSettings();
+  const { ready, source } = useSettings();
 
   const story = getStory(storyId);
   const [index, setIndex] = useState(0);
@@ -45,21 +43,15 @@ export default function StoryClient() {
     setIndex((i) => i + 1);
   }
 
-  // Auto-play: narration in the family language; game target in German.
+  // Auto-read narration in the family language.
   useEffect(() => {
-    if (!ready || !step) return;
-    if (step.type === "narration") {
-      const t = setTimeout(
-        () => void speak(step.text[source], NATIVE_LANG[source] ?? "en-US"),
-        300
-      );
-      return () => clearTimeout(t);
-    }
-    if (step.type === "game" && step.mode === "speak" && gamePhrase) {
-      const t = setTimeout(() => void playTarget(gamePhrase), 350);
-      return () => clearTimeout(t);
-    }
-  }, [ready, step, gamePhrase, source]);
+    if (!ready || !step || step.type !== "narration") return;
+    const t = setTimeout(
+      () => void speak(step.text[source], NATIVE_LANG[source] ?? "en-US"),
+      300
+    );
+    return () => clearTimeout(t);
+  }, [ready, step, source]);
 
   // Stop audio on leave.
   useEffect(() => stopAudio, []);
@@ -146,35 +138,11 @@ export default function StoryClient() {
           </button>
         </>
       ) : !gamePhrase ? (
-        // Missing phrase — skip gracefully.
         <button className="link-btn story-next" onClick={next}>
           Weiter ▶
         </button>
-      ) : step!.mode === "pick" ? (
-        <StoryPick phrase={gamePhrase} source={source} onDone={next} />
       ) : (
-        <>
-          <div className="flashcard" style={{ cursor: "default" }}>
-            <PhraseVisual phrase={gamePhrase} size={280} />
-            {showText && <p className="phrase-de">{gamePhrase.phraseTarget}</p>}
-            <AudioButton phrase={gamePhrase} label="Hör zu" />
-            <RepeatButton
-              phrase={gamePhrase}
-              onSuccess={() =>
-                void playTargetThenNative(gamePhrase).then(next)
-              }
-            />
-          </div>
-          <button
-            className="skip-link"
-            onClick={() => {
-              stopAudio();
-              next();
-            }}
-          >
-            weiter ▸
-          </button>
-        </>
+        <StoryPick phrase={gamePhrase} source={source} onDone={next} />
       )}
     </>
   );

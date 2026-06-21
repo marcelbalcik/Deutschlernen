@@ -10,7 +10,7 @@ import PhraseVisual from "@/components/PhraseVisual";
 import { getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
-import { playTarget, playTargetThenNative, stopAudio } from "@/lib/audio";
+import { playTargetThenNative, stopAudio } from "@/lib/audio";
 
 function sample<T>(arr: T[], n: number): T[] {
   const a = [...arr];
@@ -47,14 +47,7 @@ export default function RepeatClient() {
 
   const phrase = phrases[index];
 
-  // Auto-play the German phrase when a new item appears.
-  useEffect(() => {
-    if (phrase) {
-      const t = setTimeout(() => void playTarget(phrase), 350);
-      return () => clearTimeout(t);
-    }
-  }, [phrase]);
-
+  // German playback + auto-listening is handled by RepeatButton per phrase.
   // Stop any audio when leaving this screen.
   useEffect(() => stopAudio, []);
 

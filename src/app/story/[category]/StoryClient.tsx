@@ -11,8 +11,6 @@ import { getPhraseById } from "@/data/phrases";
 import { useSettings } from "@/lib/settings";
 import { speak, stopAudio } from "@/lib/audio";
 
-const NATIVE_LANG: Record<string, string> = { en: "en-US", tr: "tr-TR" };
-
 /**
  * Story player: walks the story beat by beat. Narration is read aloud in the
  * family language and advances with a big "weiter"; picture-picking beats drop
@@ -43,15 +41,12 @@ export default function StoryClient() {
     setIndex((i) => i + 1);
   }
 
-  // Auto-read narration in the family language.
+  // Auto-read narration in German (with the family-language subtitle shown).
   useEffect(() => {
     if (!ready || !step || step.type !== "narration") return;
-    const t = setTimeout(
-      () => void speak(step.text[source], NATIVE_LANG[source] ?? "en-US"),
-      300
-    );
+    const t = setTimeout(() => void speak(step.de, "de-DE"), 300);
     return () => clearTimeout(t);
-  }, [ready, step, source]);
+  }, [ready, step]);
 
   // Stop audio on leave.
   useEffect(() => stopAudio, []);
@@ -120,12 +115,13 @@ export default function StoryClient() {
               emoji={step!.emoji}
               size={260}
             />
-            <p className="story-text">{step!.text[source]}</p>
+            <p className="story-text">{step!.de}</p>
+            <p className="story-subtitle">{step!.text[source]}</p>
           </div>
           <div style={{ display: "flex", justifyContent: "center", marginTop: 14 }}>
             <button
               className="big-audio-btn"
-              onClick={() => speak(step!.text[source], NATIVE_LANG[source] ?? "en-US")}
+              onClick={() => speak(step!.de, "de-DE")}
             >
               <span className="speaker" aria-hidden>
                 🔊

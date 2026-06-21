@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import CatchStar from "./CatchStar";
+import { useEffect, useState } from "react";
 import Celebrate from "./Celebrate";
 import { sfxWin } from "@/lib/sfx";
-import { addStars } from "@/lib/progress";
+import { getStarTotal } from "@/lib/progress";
 
 type Props = {
   onAgain: () => void;
@@ -13,35 +12,23 @@ type Props = {
   homeLabel?: string;
 };
 
-/**
- * The end-of-level reward: first a star bounces around the screen and the child
- * must tap to catch it (which adds to their star total), then the celebration +
- * "again / home" buttons are revealed.
- */
+/** End-of-level celebration: fanfare + confetti + total stars + actions. */
 export default function LevelComplete({
   onAgain,
   onHome,
   homeEmoji = "🏠",
   homeLabel = "Start",
 }: Props) {
-  const [done, setDone] = useState(false);
   const [total, setTotal] = useState(0);
-  const [fire, setFire] = useState(0);
 
-  function caught() {
-    setTotal(addStars(1));
-    setFire((f) => f + 1);
+  useEffect(() => {
+    setTotal(getStarTotal());
     sfxWin();
-    setDone(true);
-  }
-
-  if (!done) {
-    return <CatchStar onCatch={caught} />;
-  }
+  }, []);
 
   return (
     <>
-      <Celebrate fire={fire} big />
+      <Celebrate fire={1} big />
       <div className="flashcard" style={{ cursor: "default" }}>
         <span className="finish-mascot" aria-hidden>
           🦊

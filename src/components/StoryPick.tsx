@@ -3,10 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import ChoiceCard from "./ChoiceCard";
 import Celebrate from "./Celebrate";
+import CatchStar from "./CatchStar";
 import { getPhrases } from "@/data/phrases";
 import { playPhraseItem, playTargetThenNative } from "@/lib/audio";
 import { sfxCorrect, sfxWrong } from "@/lib/sfx";
-import { markCorrect } from "@/lib/progress";
+import { addStars, markCorrect } from "@/lib/progress";
 import type { PhraseItem, SourceLanguage } from "@/types/phrase";
 
 type Props = {
@@ -32,6 +33,7 @@ export default function StoryPick({ phrase, source, onDone }: Props) {
 
   const [picked, setPicked] = useState<string | null>(null);
   const [fire, setFire] = useState(0);
+  const [catching, setCatching] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => playPhraseItem(phrase), 300);
@@ -43,18 +45,25 @@ export default function StoryPick({ phrase, source, onDone }: Props) {
     setPicked(p.id);
     if (p.id === phrase.id) {
       markCorrect(phrase.id);
-      setFire((f) => f + 1);
       sfxCorrect();
-      void playTargetThenNative(phrase).then(onDone);
+      setCatching(true);
     } else {
       sfxWrong();
       setTimeout(() => setPicked(null), 700);
     }
   }
 
+  function handleCaught() {
+    setCatching(false);
+    addStars(1);
+    setFire((f) => f + 1);
+    void playTargetThenNative(phrase).then(onDone);
+  }
+
   return (
     <>
       <Celebrate fire={fire} />
+      {catching && <CatchStar onCatch={handleCaught} />}
       <div className="play-prompt">
         <p>Was hörst du?</p>
         <AudioReplay phrase={phrase} />

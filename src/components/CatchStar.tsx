@@ -21,7 +21,7 @@ export default function CatchStar({ onCatch }: Props) {
     const move = () =>
       setPos({ top: 16 + Math.random() * 60, left: 10 + Math.random() * 70 });
     move();
-    const id = setInterval(move, 1000);
+    const id = setInterval(move, 1300);
     return () => clearInterval(id);
   }, [caught]);
 

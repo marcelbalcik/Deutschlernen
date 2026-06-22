@@ -8,10 +8,12 @@ import AudioButton from "@/components/AudioButton";
 import RepeatButton from "@/components/RepeatButton";
 import PhraseVisual from "@/components/PhraseVisual";
 import LevelComplete from "@/components/LevelComplete";
+import CatchStar from "@/components/CatchStar";
 import { getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
 import { playTargetThenNative, stopAudio } from "@/lib/audio";
+import { addStars } from "@/lib/progress";
 
 function sample<T>(arr: T[], n: number): T[] {
   const a = [...arr];
@@ -45,6 +47,7 @@ export default function RepeatClient() {
 
   const [index, setIndex] = useState(0);
   const [done, setDone] = useState<number[]>([]);
+  const [catching, setCatching] = useState(false);
 
   const phrase = phrases[index];
 
@@ -81,6 +84,18 @@ export default function RepeatClient() {
 
   return (
     <>
+      {catching && (
+        <CatchStar
+          onCatch={() => {
+            setCatching(false);
+            addStars(1);
+            // Hear it again in German, then the translation, then move on.
+            void playTargetThenNative(phrase).then(() =>
+              setIndex((i) => i + 1)
+            );
+          }}
+        />
+      )}
       <TopBar title={category.title} backHref="/repeat" />
       <ProgressDots total={phrases.length} current={index} done={done} />
 
@@ -92,10 +107,7 @@ export default function RepeatClient() {
           phrase={phrase}
           onSuccess={() => {
             setDone((d) => (d.includes(index) ? d : [...d, index]));
-            // Hear it again in German, then the translation, then move on.
-            void playTargetThenNative(phrase).then(() =>
-              setIndex((i) => i + 1)
-            );
+            setCatching(true);
           }}
         />
       </div>

@@ -7,13 +7,14 @@ import ProgressDots from "@/components/ProgressDots";
 import AudioButton from "@/components/AudioButton";
 import TopBar from "@/components/TopBar";
 import Celebrate from "@/components/Celebrate";
+import CatchStar from "@/components/CatchStar";
 import LevelComplete from "@/components/LevelComplete";
 import { getPhrases, getPhrasesByCategory } from "@/data/phrases";
 import { getCategory } from "@/data/categories";
 import { useSettings } from "@/lib/settings";
 import { playPhraseItem, playTargetThenNative, stopAudio } from "@/lib/audio";
 import { sfxCorrect, sfxWrong } from "@/lib/sfx";
-import { markCorrect } from "@/lib/progress";
+import { addStars, markCorrect } from "@/lib/progress";
 import type { PhraseItem } from "@/types/phrase";
 
 type Round = {
@@ -51,6 +52,7 @@ export default function PlayClient() {
   const [seed, setSeed] = useState(0); // bump to reshuffle a fresh session
   const [stars, setStars] = useState(0);
   const [fire, setFire] = useState(0); // confetti trigger
+  const [catching, setCatching] = useState(false);
 
   const rounds: Round[] = useMemo(() => {
     if (!ready) return [];
@@ -121,18 +123,11 @@ export default function PlayClient() {
     setPicked(p.id);
 
     if (p.id === current.target.id) {
-      const target = current.target;
-      markCorrect(target.id);
+      markCorrect(current.target.id);
       setSolved((s) => [...s, round]);
-      setStars((s) => s + 1);
-      setFire((f) => f + 1);
       sfxCorrect();
-      // Reinforcement: hear the German phrase again, then the translation, then
-      // move on. Kicked off inside the tap so mobile audio is allowed to play.
-      void playTargetThenNative(target).finally(() => {
-        setPicked(null);
-        setRound((r) => r + 1);
-      });
+      // Reward: a star appears to catch before moving on.
+      setCatching(true);
     } else {
       // Gentle: soft sound, clear the wrong state, let them try again.
       sfxWrong();
@@ -140,9 +135,23 @@ export default function PlayClient() {
     }
   }
 
+  // The child caught the star → collect it, reinforce, advance.
+  function handleCaught() {
+    setCatching(false);
+    setStars((s) => s + 1);
+    addStars(1);
+    setFire((f) => f + 1);
+    const target = current.target;
+    void playTargetThenNative(target).finally(() => {
+      setPicked(null);
+      setRound((r) => r + 1);
+    });
+  }
+
   return (
     <>
       <Celebrate fire={fire} />
+      {catching && <CatchStar onCatch={handleCaught} />}
       <TopBar title={category.title} backHref="/play" />
       <ProgressDots total={rounds.length} current={round} done={solved} />
       <div className="star-bar" aria-label={`${stars} stars`}>

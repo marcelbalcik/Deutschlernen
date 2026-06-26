@@ -14,7 +14,9 @@ sound, learned through tapping and repetition — not text or grammar.
 
 ## What's in this MVP
 
-- **34 survival phrases** in 4 packs: Greetings, Eating, Playing, Feelings/Body.
+- **216 phrases** in 4 packs: Greetings (54), Eating (52), Playing (52),
+  Feelings/Body (58). The 31 most critical ones are flagged `priority` and
+  surface together in a virtual **Survival** pack for day-one Kita needs.
 - **Flashcards** — tap a picture, hear the German phrase (auto-plays too).
 - **Listen & Tap game** — the app says a phrase; the child taps the right
   picture out of 3. Wrong taps are gentle (no score loss); right taps celebrate.
@@ -82,6 +84,13 @@ The app is **fully usable today with zero asset files**:
 - **Audio** uses the browser's built-in **German speech synthesis**.
 - **Images** use an **emoji placeholder** per phrase.
 
+> **Heads up on browser speech (Linux):** Web Speech synthesis only produces
+> sound if the operating system has German TTS voices installed. macOS and
+> Windows ship them by default, but a fresh Linux/Ubuntu browser has **none** —
+> `speechSynthesis.getVoices()` returns an empty list and nothing plays. Install
+> `speech-dispatcher` + `espeak-ng` for a (robotic) fallback, or add real
+> recordings (below) so the app no longer depends on browser speech.
+
 To add real assets, drop two files into a folder named after the phrase `id`:
 
 ```
@@ -94,6 +103,12 @@ That's it — no code changes. A scan runs automatically on `dev`/`build` (or ru
 `npm run assets`) and the app starts using the real files, falling back to
 emoji/speech for anything not yet added. Details:
 [`public/exercises/README.md`](public/exercises/README.md).
+
+**Generating audio in bulk.** Rather than recording all 216 phrases by hand, you
+can synthesize them with a local TTS engine. `scripts/generate-voices.py` reads
+`src/data/phrase_packs.json` and writes one `audio.mp3` per phrase into the
+folders above. See [`docs/VOICE_GENERATION.md`](docs/VOICE_GENERATION.md) for
+setup, voice-model choices, and commercial-licensing notes.
 
 ---
 
@@ -109,7 +124,8 @@ src/
     globals.css
   components/              # Flashcard, AudioButton, ChoiceCard, ProgressDots, ...
   data/
-    phrases.ts             # The 34 phrases (authored once, multi-language)
+    phrase_packs.json      # Source of truth: the 216 phrases (multi-language)
+    phrases.ts             # Loads + shapes phrase_packs.json into app content
     categories.ts
     assets.generated.json  # Auto-generated asset manifest (do not edit by hand)
   lib/
@@ -123,6 +139,7 @@ public/
   exercises/<id>/          # image.png + audio.mp3 per phrase (you add these)
 scripts/
   scan-assets.mjs          # Builds the asset manifest
+  generate-voices.py       # Bulk-synthesizes German audio.mp3 per phrase (TTS)
 ```
 
 ---
